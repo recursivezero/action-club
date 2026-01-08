@@ -19,6 +19,10 @@ Collection of github actions and workflow
     - change contact email address and url wherever mentioned.
   - CODEOWNERS file
 
+## Changelog
+
+See what’s new in each version: [CHANGELOG.md](./CHANGELOG.md)
+
 > :copyright: _RecursiveZero_ Private Limited
 
 > <!-- References -->
