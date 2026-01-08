@@ -7,7 +7,7 @@ on:
       - main
 
 permissions:
-  contents: write # needed to push commits and tags
+  contents: write # allow pushing commits and tags
 
 jobs:
   release:
@@ -16,12 +16,17 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0 # needed to get tags
+          fetch-depth: 0
 
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: "18"
+
+      - name: Configure Git identity
+        run: |
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git config --global user.name "github-actions[bot]"
 
       - name: Bump version
         run: |
@@ -39,7 +44,7 @@ jobs:
         run: |
           latest_tag=$(git describe --tags --abbrev=0 HEAD^ || echo "")
           new_tag=$(git describe --tags --abbrev=0 HEAD)
-          changelog_date=$(date +"%a, %b %d %Y")  # or "%Y-%m-%d"
+          changelog_date=$(date +"%a, %b %d %Y")
           {
             echo "## [$new_tag] - $changelog_date"
             if [ -n "$latest_tag" ]; then
