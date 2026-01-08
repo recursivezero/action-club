@@ -6,6 +6,9 @@ on:
     branches:
       - main
 
+permissions:
+  contents: write # needed to push commits and tags
+
 jobs:
   release:
     runs-on: ubuntu-latest
@@ -22,7 +25,8 @@ jobs:
 
       - name: Bump version
         run: |
-          bump=${{ github.event.head_commit.message }}
+          bump="${{ github.event.head_commit.message }}"
+          echo "Commit message: $bump"
           if [[ "$bump" == *"#minor"* ]]; then
             npm version minor -m "chore: bump minor version"
           elif [[ "$bump" == *"#major"* ]]; then
@@ -33,14 +37,20 @@ jobs:
 
       - name: Update CHANGELOG
         run: |
-          latest_tag=$(git describe --tags --abbrev=0)
+          latest_tag=$(git describe --tags --abbrev=0 HEAD^ || echo "")
           new_tag=$(git describe --tags --abbrev=0 HEAD)
           changelog_date=$(date +"%a, %b %d %Y")  # or "%Y-%m-%d"
-          echo "## [$new_tag] - $changelog_date" >> CHANGELOG.md
-          git log ${latest_tag}..HEAD --pretty=format:"- %s" >> CHANGELOG.md
-          echo "" >> CHANGELOG.md
+          {
+            echo "## [$new_tag] - $changelog_date"
+            if [ -n "$latest_tag" ]; then
+              git log ${latest_tag}..HEAD --pretty=format:"- %s"
+            else
+              git log HEAD --pretty=format:"- %s"
+            fi
+            echo ""
+          } >> CHANGELOG.md
           git add CHANGELOG.md
-          git commit -m "docs: update changelog for $new_tag"
+          git commit -m "docs: update changelog for $new_tag" || echo "No changelog update needed"
 
       - name: Push changes
         run: |
