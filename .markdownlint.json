@@ -5,7 +5,12 @@
   },
   "MD029": false,
   "MD033": {
-    "allowed_elements": [ "summary", "details", "mark" ]
+    "allowed_elements": [
+      "summary",
+      "details",
+      "mark",
+      "kbd"
+    ]
   },
   "MD007": {
     "indent": 2

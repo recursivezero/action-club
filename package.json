@@ -1,19 +1,19 @@
 {
-  "name": "@recursivezero/template",
-  "version": "0.2.0",
+  "name": "@recursivezero/action-club",
+  "version": "0.1.0",
   "private": false,
-  "displayName": "RecursiveZeroTemplate",
-  "description": "This is a template repository.",
+  "displayName": "Action club",
+  "description": "collection of useful and smart github actions and workflows",
   "publisher": "@recursivezero",
-  "homepage": "https://github.com/recursivezero/template/blob/main/README.md",
+  "homepage": "https://github.com/recursivezero/action-club/blob/main/README.md",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/recursivezero/template/issues",
+    "url": "https://github.com/recursivezero/action-club/issues",
     "email": "recursivezero@outlook.com"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/recursivezero/template.git"
+    "url": "https://github.com/recursivezero/action-club.git"
   },
   "keywords": [
     "project",
@@ -26,23 +26,21 @@
     "name": "Recursive Zero",
     "email": "recursivezero@outlook.com"
   },
-  "contributors": [ {
-      "name": "Keshav Mohta",
-      "email": "xkeshav@gmail.com"
-    } ],
+  "contributors": [],
   "main": "src/index.js",
   "scripts": {
-    "start": "node src/index.js"
+    "start": "node src/index.js",
+    "postinstall": "if [ -d .git ]; then ./scripts/setup-hooks.sh; fi"
   },
   "dependencies": {
     "@xkeshav/day": "latest",
     "@xkeshav/watch": "latest"
   },
   "timestamp": {
-    "createdOn": "Fri, Oct 05, 2024"
+    "createdOn": "Fri, Jan 09, 2026"
   },
-  "devDependencies": { },
-  "peerDependencies": { },
+  "devDependencies": {},
+  "peerDependencies": {},
   "browserslist": {
     "production": [
       ">0.2%",

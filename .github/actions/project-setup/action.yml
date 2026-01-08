@@ -1,0 +1,41 @@
+name: "Local Project Setup"
+description: "Links Issues or PRs to a User Project and assigns a specific column status."
+author: "recursivezero"
+
+# ==============================================================================
+# INPUTS: Defines the data required to run this action
+# ==============================================================================
+inputs:
+  issue_url:
+    description: "The full HTML URL of the Issue or Pull Request to be linked."
+    required: true
+  issue_number:
+    description: "The numeric ID of the Issue or PR (used for posting error comments)."
+    required: true
+  target_status:
+    description: 'The exact name of the Project column (e.g., "Todo", "In Progress").'
+    required: true
+    default: "Todo"
+  project_token:
+    description: 'Personal Access Token (PAT) with "project" write scope.'
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+    - name: Execute Project Initialization Script
+      shell: bash
+      env:
+        # We pass the PAT into the GH_TOKEN environment variable
+        # so the GitHub CLI (gh) can authenticate automatically.
+        GH_TOKEN: ${{ inputs.project_token }}
+      run: |
+        # 1. Grant execute permissions to the shell script in the action folder
+        chmod +x ${{ github.action_path }}/project-init.sh
+
+        # 2. Execute the logic script with passed arguments
+        # Argument 1: URL, Argument 2: Number, Argument 3: Status Name
+        ${{ github.action_path }}/project-init.sh \
+          "${{ inputs.issue_url }}" \
+          "${{ inputs.issue_number }}" \
+          "${{ inputs.target_status }}"

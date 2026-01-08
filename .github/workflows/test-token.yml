@@ -1,4 +1,8 @@
 name: Check PAT Secret
+run-name: Verify Token validity and authenticity
+
+# save PAT in repo secrets with name as ISSUE_TOKEN
+
 on: workflow_dispatch
 
 jobs:

@@ -1,4 +1,4 @@
-# Template Repository
+# Action Club R
 
 ![Template][template]
 ![License][license]
@@ -19,17 +19,13 @@ This is template repository of RecursiveZero.
     - change contact email address and url wherever mentioned.
   - CODEOWNERS file
 
-
 > :copyright: _RecursiveZero_ Private Limited
-
 
 > <!-- References -->
 
 [template]: https://badgen.net/static/github/template?icon=github
-[repo]: https://github.com/recursivezero/template
-[license]: https://badgen.net/github/license/recursivezero/template
-[issues]: https://badgen.net/github/open-issues/recursivezero/template
-[PR]: https://badgen.net/github/prs/recursivezero/template
-[commits]: https://badgen.net/github/commits/recursivezero/template/main?color=green
-
-
+[repo]: https://github.com/recursivezero/action-club
+[license]: https://badgen.net/github/license/recursivezero/action-club
+[issues]: https://badgen.net/github/open-issues/recursivezero/action-club
+[PR]: https://badgen.net/github/prs/recursivezero/action-club
+[commits]: https://badgen.net/github/commits/recursivezero/action-club/main?color=green

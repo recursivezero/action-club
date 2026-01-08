@@ -1,0 +1,25 @@
+name: Issue Sync with Branch
+
+on:
+  create: # Triggers when a branch or tag is created
+
+permissions:
+  issues: write # Required to comment and add labels
+  contents: read # Required to read the repo metadata
+
+jobs:
+  notify:
+    # Ensure we only run for branches, not tags
+    if: github.event.ref_type == 'branch'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v4
+
+      - name: Link Branch to Issue
+        # Point this to your centralized repository
+        uses: recursivezero/action-club/.github/actions/branch-notify@main
+        with:
+          issue_prefix: "RAC" # change this as per your convention
+          branch_name: ${{ github.event.ref }}
+          dry_run: false

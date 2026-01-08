@@ -1,5 +1,6 @@
 name: markdown-lint
 run-name: Linting markdown files
+
 on:
   push:
     branches:
@@ -15,6 +16,7 @@ on:
     paths:
       - "**.md"
       - "**.mdx"
+
 jobs:
   markdown-lint:
     runs-on: ubuntu-latest
@@ -28,4 +30,4 @@ jobs:
           node-version: "20"
 
       - name: Lint Markdown files
-        uses: ./.github/actions/md-lint
+        uses: recursivezero/action-club/.github/actions/md-lint@main
