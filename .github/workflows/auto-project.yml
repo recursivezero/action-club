@@ -19,7 +19,7 @@ jobs:
       - name: Initialize Project Sidebar & Status
         env:
           GH_TOKEN: ${{ secrets.TZ_PROJECT_PAT }}
-        uses: recursivezero/action-club/.github/actions/project-setup
+        uses: recursivezero/action-club/.github/actions/project-setup@main
         with:
           issue_url: ${{ github.event.issue.html_url || github.event.pull_request.html_url }}
           issue_number: ${{ github.event.issue.number || github.event.pull_request.number }}

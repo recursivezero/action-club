@@ -1,4 +1,4 @@
-# Action Club R
+# Action Club
 
 ![Template][template]
 ![License][license]
@@ -6,7 +6,7 @@
 ![Commit Count][commits]
 ![Total Pull Request][PR]
 
-This is template repository of RecursiveZero.
+Collection of github actions and workflow
 
 ## How to use this Template repository
 
