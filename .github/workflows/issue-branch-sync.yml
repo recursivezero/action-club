@@ -1,4 +1,5 @@
 name: Issue Sync with Branch
+run-name: tag label and project when branch generated based on issue.
 
 on:
   create: # Triggers when a branch or tag is created

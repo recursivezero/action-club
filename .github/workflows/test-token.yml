@@ -11,6 +11,11 @@ jobs:
     steps:
       - name: Test if PAT works
         run: |
-          curl -s -o /dev/null -w "%{http_code}" \
+          status=$(curl -s -o /dev/null -w "%{http_code}" \
             -H "Authorization: token ${{ secrets.ISSUE_TOKEN }}" \
-            https://api.github.com/user
+            https://api.github.com/user)
+
+          if [ "$status" -ne 200 ]; then
+            echo "PAT is invalid or missing (status: $status)"
+            exit 1
+          fi

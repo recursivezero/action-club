@@ -1,4 +1,5 @@
-name: Project Automation
+name: Assign Project
+run-name: assign project under issue and pull requests
 
 on:
   issues:
@@ -8,21 +9,20 @@ on:
 
 jobs:
   link-to-project:
-    name: Auto-link to Project 1
+    name: Auto-link to Project Threadzip
     runs-on: ubuntu-latest
-    # FIX: We use 'github.event_name' directly.
-    # To disable one, simply remove 'issues' or 'pull_request' from the 'on:' section above.
+
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
 
       - name: Initialize Project Sidebar & Status
         env:
-          GH_TOKEN: ${{ secrets.TZ_PROJECT_PAT }}
+          GH_TOKEN: ${{ secrets.RZ_PROJECT }}
         uses: recursivezero/action-club/.github/actions/project-setup@main
         with:
           issue_url: ${{ github.event.issue.html_url || github.event.pull_request.html_url }}
           issue_number: ${{ github.event.issue.number || github.event.pull_request.number }}
           # Logic: If it is a PR, use 'In Progress'. Otherwise, use 'Todo'.
           target_status: ${{ github.event_name == 'pull_request' && 'In Progress' || 'Todo' }}
-          project_token: ${{ secrets.TZ_PROJECT_PAT }}
+          project_token: ${{ secrets.RZ_PROJECT }}

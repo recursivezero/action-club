@@ -39,4 +39,4 @@ jobs:
         run: |
           git add build
           git commit -m "Update dist folder" || echo "No changes to commit"
-          git push https://x-access-token:${GITHUB_TOKEN}@github.com/recursivezero/tz-client.git release
+          git push https://x-access-token:${GITHUB_TOKEN}@github.com/recursivezero/action-club.git release
