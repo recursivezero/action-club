@@ -17,3 +17,7 @@ All notable changes to this repository will be documented in this file.
 - [main]: update action and scripts in package.json
 - [main]: workflow, actions and hooks added
 - Initial commit
+## [v0.2.0] - Fri, Jan 09 2026
+- chore: bump minor version
+- [main]: update readme with details of workflow #minor
+- docs: update changelog for v0.1.2
