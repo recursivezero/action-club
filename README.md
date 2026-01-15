@@ -1,6 +1,6 @@
 # Action Club
 
-![Template][template]
+![Action][action]
 ![License][license]
 ![Open Issues][issues]
 ![Commit Count][commits]
@@ -65,7 +65,7 @@ See what’s new in each version: [CHANGELOG.md](./CHANGELOG.md)
 
 > <!-- References -->
 
-[template]: https://badgen.net/static/github/template?icon=github
+[action]: https://badgen.net/badge/icon/github?icon=github&label=action
 [license]: https://badgen.net/github/license/recursivezero/action-club
 [issues]: https://badgen.net/github/open-issues/recursivezero/action-club
 [PR]: https://badgen.net/github/prs/recursivezero/action-club
