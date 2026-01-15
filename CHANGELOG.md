@@ -21,3 +21,7 @@ All notable changes to this repository will be documented in this file.
 - chore: bump minor version
 - [main]: update readme with details of workflow #minor
 - docs: update changelog for v0.1.2
+## [v0.2.1] - Thu, Jan 15 2026
+- chore: bump patch version
+- Update badge from template to action in README
+- docs: update changelog for v0.2.0
