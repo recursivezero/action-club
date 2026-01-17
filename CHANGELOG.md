@@ -41,3 +41,7 @@ All notable changes to this repository will be documented in this file.
 - chore: bump patch version
 - [main]: getting first meaningful line
 - docs: update changelog for v0.2.4
+## [v0.2.6] - Sat, Jan 17 2026
+- chore: bump patch version
+- [main]:
+- docs: update changelog for v0.2.5
