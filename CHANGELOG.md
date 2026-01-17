@@ -37,3 +37,7 @@ All notable changes to this repository will be documented in this file.
 - chore: bump patch version
 - [main]: now using PAT to grab first line of README
 - docs: update changelog for v0.2.3
+## [v0.2.5] - Sat, Jan 17 2026
+- chore: bump patch version
+- [main]: getting first meaningful line
+- docs: update changelog for v0.2.4
