@@ -29,3 +29,7 @@ All notable changes to this repository will be documented in this file.
 - chore: bump patch version
 - [main]: added sync description workflow
 - docs: update changelog for v0.2.1
+## [v0.2.3] - Sat, Jan 17 2026
+- chore: bump patch version
+- [main]: add run-name and echo the op while workflow runs
+- docs: update changelog for v0.2.2
