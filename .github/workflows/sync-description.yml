@@ -1,4 +1,5 @@
 name: Sync Repo Description
+run-name: "Sync description from README on branch: ${{ github.ref_name }}"
 
 on:
   push:
@@ -15,10 +16,12 @@ jobs:
         id: readme
         run: |
           DESC=$(head -n 1 README.md | sed 's/# //')
+          echo "Extracted description: $DESC"
           echo "desc=$DESC" >> $GITHUB_ENV
 
       - name: Update repo description via API
         run: |
+          echo "Updating repo description to: ${{ env.desc }}"
           curl -X PATCH \
             -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
             -H "Accept: application/vnd.github.v3+json" \
