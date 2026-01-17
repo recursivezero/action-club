@@ -15,8 +15,8 @@ jobs:
       - name: Extract description from README
         id: readme
         run: |
-          DESC=$(awk 'NR>1 && NF {print; exit}' README.md) 
-          echo "Extracted description: $DESC" 
+          DESC=$(awk 'NR>1 && $0 !~ /^!/ && NF {print; exit}' README.md)
+          echo "Extracted description: $DESC"
           echo "desc=$DESC" >> $GITHUB_ENV
 
       - name: Update repo description via API
