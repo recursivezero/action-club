@@ -45,3 +45,7 @@ All notable changes to this repository will be documented in this file.
 - chore: bump patch version
 - [main]:
 - docs: update changelog for v0.2.5
+## [v0.2.7] - Mon, Jan 19 2026
+- chore: bump patch version
+- [main]: change issue title job action
+- docs: update changelog for v0.2.6
