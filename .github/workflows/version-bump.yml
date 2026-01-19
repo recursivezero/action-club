@@ -46,7 +46,7 @@ jobs:
           new_tag=$(git describe --tags --abbrev=0 HEAD)
           changelog_date=$(date +"%a, %b %d %Y")
           {
-            echo "## [$new_tag] - $changelog_date"
+            echo -e "\n## [$new_tag] - $changelog_date\n"
             if [ -n "$latest_tag" ]; then
               git log ${latest_tag}..HEAD --pretty=format:"- %s"
             else
