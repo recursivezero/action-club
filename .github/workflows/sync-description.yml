@@ -4,6 +4,8 @@ run-name: "Sync description from README on branch: ${{ github.ref_name }}"
 on:
   push:
     branches: [main]
+    paths: 
+    - "README.md"
 
 jobs:
   update-description:
