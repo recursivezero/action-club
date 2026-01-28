@@ -3,11 +3,16 @@ description: Run npx markdownlint-cli
 runs:
   using: "composite"
   steps:
+    - name: Setup Node.js environment
+      uses: actions/setup-node@v4
+      with:
+        node-version: "20"
+
     - shell: bash
       run: |
         npx markdownlint-cli '**/*.md' \
         --config "${{ github.action_path }}/.markdownlint.json" \
         --ignore '.github/CONTRIBUTING.md' \
-        --ignore '.github/CODE_OF_CONDUCT.md'\
-        --ignore '.github/privacy.md'\
+        --ignore '.github/CODE_OF_CONDUCT.md' \
+        --ignore '.github/privacy.md' \
         --ignore 'CHANGELOG.md'
