@@ -35,10 +35,18 @@ runs:
         git config --global user.email "github-actions[bot]@users.noreply.github.com"
         git config --global user.name "github-actions[bot]"
 
+    - name: Make bump script executable
+      shell: bash
+      run: chmod +x ${{ github.action_path }}/bump.sh
+
     - name: Bump version
       if: ${{ inputs.enable-bump == 'true' }}
       shell: bash
       run: ${{ github.action_path }}/bump.sh
+
+    - name: Make changelog script executable
+      shell: bash
+      run: chmod +x ${{ github.action_path }}/changelog.sh
 
     - name: Update CHANGELOG
       if: ${{ inputs.enable-changelog == 'true' }}
