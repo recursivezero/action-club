@@ -95,3 +95,8 @@ All notable changes to this repository will be documented in this file.
 - chore: bump patch version
 - [main]: add node setup inside md-lint action
 - docs: update changelog for v0.2.11
+
+## [v0.2.14] - Wed, Jan 28 2026
+
+- chore: bump patch version
+- [main]: enable changelog now
