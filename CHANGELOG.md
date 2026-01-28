@@ -83,3 +83,9 @@ All notable changes to this repository will be documented in this file.
 - chore: bump patch version
 - [main]: update logic if already exist then do not change issue-title again
 - docs: update changelog for v0.2.9
+
+## [v0.2.11] - Wed, Jan 28 2026
+
+- chore: bump patch version
+- [main]: move markdown lint inside action file
+- docs: update changelog for v0.2.10
