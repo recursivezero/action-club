@@ -17,8 +17,15 @@ PADDED_NUM=$(printf "%04d" "$ISSUE_NUMBER")
 IDENTIFIER="[${PREFIX}-${YEAR}${PADDED_NUM}]: "
 
 # Skip if already present
-if echo "$OLD_TITLE" | grep -q "$IDENTIFIER"; then
-  echo "Identifier already present. Skipping."
+# if echo "$OLD_TITLE" | grep -q "$IDENTIFIER"; then
+#   echo "Identifier already present. Skipping."
+#   exit 0
+# fi
+
+# Skip by checking the prefix
+
+if [[ "$OLD_TITLE" =~ \[${PREFIX}-[0-9]{6}\] ]]; then
+  echo "Title already contains formatted ID [${PREFIX}-XXXXXX]. Skipping."
   exit 0
 fi
 

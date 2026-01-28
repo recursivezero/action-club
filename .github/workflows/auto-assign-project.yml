@@ -1,5 +1,5 @@
 name: Assign Project
-run-name: assign project under issue and pull requests
+run-name: Assign project under issue and pull requests
 
 on:
   issues:
