@@ -15,6 +15,11 @@ inputs:
     description: "Run changelog update step"
     required: false
     default: "true"
+  bump-type:
+    description: "Version bump type (patch, minor, major). If not set, commit message decides."
+    required: false
+    default: ""
+
 
 runs:
   using: "composite"
