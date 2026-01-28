@@ -106,3 +106,9 @@ All notable changes to this repository will be documented in this file.
 - chore: bump patch version
 - [main]: update description only when README updated
 - docs: update changelog for v0.2.14
+
+## [v0.2.16] - Wed, Jan 28 2026
+
+- chore: bump patch version
+- [main]: added bump_type input to handle manually workflow trigger for bump-version action
+- docs: update changelog for v0.2.15
