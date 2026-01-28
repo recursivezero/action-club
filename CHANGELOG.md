@@ -100,3 +100,9 @@ All notable changes to this repository will be documented in this file.
 
 - chore: bump patch version
 - [main]: enable changelog now
+
+## [v0.2.15] - Wed, Jan 28 2026
+
+- chore: bump patch version
+- [main]: update description only when README updated
+- docs: update changelog for v0.2.14
