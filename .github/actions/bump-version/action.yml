@@ -1,0 +1,50 @@
+name: bump-version
+description: Bump version and optionally update changelog
+author: recursivezero
+
+inputs:
+  node-version:
+    description: "Node.js version to use"
+    required: false
+    default: "18"
+  enable-bump:
+    description: "Run version bump step"
+    required: false
+    default: "true"
+  enable-changelog:
+    description: "Run changelog update step"
+    required: false
+    default: "true"
+
+runs:
+  using: "composite"
+  steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+
+    - name: Setup Node
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ inputs.node-version }}
+
+    - name: Configure Git identity
+      shell: bash
+      run: |
+        git config --global user.email "github-actions[bot]@users.noreply.github.com"
+        git config --global user.name "github-actions[bot]"
+
+    - name: Bump version
+      if: ${{ inputs.enable-bump == 'true' }}
+      shell: bash
+      run: ${{ github.action_path }}/bump.sh
+
+    - name: Update CHANGELOG
+      if: ${{ inputs.enable-changelog == 'true' }}
+      shell: bash
+      run: ${{ github.action_path }}/changelog.sh
+
+    - name: Push changes
+      shell: bash
+      run: git push --follow-tags
