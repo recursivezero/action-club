@@ -89,3 +89,9 @@ All notable changes to this repository will be documented in this file.
 - chore: bump patch version
 - [main]: move markdown lint inside action file
 - docs: update changelog for v0.2.10
+
+## [v0.2.12] - Wed, Jan 28 2026
+
+- chore: bump patch version
+- [main]: add node setup inside md-lint action
+- docs: update changelog for v0.2.11
