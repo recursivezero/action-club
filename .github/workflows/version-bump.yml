@@ -9,7 +9,7 @@ permissions:
   contents: write
 
 jobs:
-  release:
+  bump:
     runs-on: ubuntu-latest
     steps:
       - name: Run bump-version action
@@ -17,4 +17,4 @@ jobs:
         with:
           node-version: "18"
           enable-bump: "true"
-          enable-changelog: "false"   # disables changelog update
+          enable-changelog: "true"   # toggle changelog update
