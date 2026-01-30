@@ -1,0 +1,14 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  node:
+    uses: recursivezero/action-club/.github/workflows/node-ci.yml@main
+    with:
+      node-version: "20"
+      run-tests: true
