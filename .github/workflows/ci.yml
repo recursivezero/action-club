@@ -1,4 +1,5 @@
 name: CI
+run-name: Continuous Integration for Node.js project via reusable workflow
 
 on:
   push:

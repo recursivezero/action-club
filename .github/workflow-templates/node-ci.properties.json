@@ -1,9 +1,0 @@
-{
-  "name": "Node.js CI",
-  "description": "Basic CI for Node.js projects",
-  "iconName": "nodejs",
-  "categories": [
-    "JavaScript",
-    "CI"
-  ]
-}
