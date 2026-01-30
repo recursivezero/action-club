@@ -125,3 +125,9 @@ All notable changes to this repository will be documented in this file.
 - chore: bump patch version
 - added workflow template folder and author in composite actions
 - docs: update changelog for v0.2.17
+
+## [v0.2.19] - Fri, Jan 30 2026
+
+- chore: bump patch version
+- reusable workflow
+- docs: update changelog for v0.2.18
