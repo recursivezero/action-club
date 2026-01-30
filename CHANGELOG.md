@@ -131,3 +131,9 @@ All notable changes to this repository will be documented in this file.
 - chore: bump patch version
 - reusable workflow
 - docs: update changelog for v0.2.18
+
+## [v0.2.20] - Fri, Jan 30 2026
+
+- chore: bump patch version
+- remove workflow-templates
+- docs: update changelog for v0.2.19
