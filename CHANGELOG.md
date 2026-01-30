@@ -119,3 +119,9 @@ All notable changes to this repository will be documented in this file.
 - [main]: undo last change
 - [main]: added cliff.toml for summarize changelog
 - docs: update changelog for v0.2.16
+
+## [v0.2.18] - Fri, Jan 30 2026
+
+- chore: bump patch version
+- added workflow template folder and author in composite actions
+- docs: update changelog for v0.2.17
