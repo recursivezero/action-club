@@ -1,5 +1,6 @@
 name: "Branch to Issue Connector"
 description: "Automates linking branches to issues via comments and labels"
+author: "recursivezero"
 
 # ------------------------------------------------------------------------------
 # INPUTS: These are passed from the calling repository

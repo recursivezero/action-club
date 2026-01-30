@@ -1,5 +1,6 @@
 name: "Format Issue ID"
 description: "Replaces placeholder or appends formatted ID to GitHub issue titles"
+author: "recursivezero"
 
 inputs:
   prefix:

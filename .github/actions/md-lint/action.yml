@@ -1,5 +1,7 @@
 name: md-lint
 description: Run npx markdownlint-cli
+author: "recursivezero"
+
 runs:
   using: "composite"
   steps:

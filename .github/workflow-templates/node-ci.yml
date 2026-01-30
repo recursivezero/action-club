@@ -1,0 +1,16 @@
+name: Node CI
+description: Continuous Integration for Node.js projects
+
+on:
+  push:
+    branches: [$default-branch]
+  pull_request:
+    branches: [$default-branch]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - run: npm ci
+      - run: npm test
