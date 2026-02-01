@@ -28,6 +28,7 @@ jobs:
       # 3. Sync docs → wiki and PUSH WITH EXPLICIT AUTH
       - name: Sync docs to wiki
         run: |
+          set -x   # 👈 show every command
           rm -rf wiki/*
           cp -r docs/* wiki/
           cd wiki
