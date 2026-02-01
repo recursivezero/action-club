@@ -194,3 +194,9 @@ All notable changes to this repository will be documented in this file.
 - chore: bump patch version
 - added wiki sync workflow
 - docs: update changelog for v0.2.28
+
+## [v0.2.30] - Sun, Feb 01 2026
+
+- chore: bump patch version
+- added permissions
+- docs: update changelog for v0.2.29
