@@ -1,6 +1,6 @@
 {
   "name": "@recursivezero/action-club",
-  "version": "0.2.29",
+  "version": "0.2.30",
   "private": false,
   "displayName": "Action club",
   "description": "collection of useful and smart github actions and workflows",
