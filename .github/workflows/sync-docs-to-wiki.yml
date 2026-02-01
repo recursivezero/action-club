@@ -22,8 +22,7 @@ jobs:
 
       - name: Sync docs to wiki
         run: |
-          rm -rf wiki/*
-          cp -r docs/* wiki/
+          rsync -av docs/ wiki/
           cd wiki
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
