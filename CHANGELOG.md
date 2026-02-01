@@ -260,3 +260,9 @@ All notable changes to this repository will be documented in this file.
 - chore: bump patch version
 - remove checkout
 - docs: update changelog for v0.2.39
+
+## [v0.2.41] - Sun, Feb 01 2026
+
+- chore: bump patch version
+- usage
+- docs: update changelog for v0.2.40
