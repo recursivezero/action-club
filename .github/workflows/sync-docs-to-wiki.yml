@@ -1,5 +1,4 @@
 name: Sync docs to wiki
-run-name: Sync documentation files from the main repository to the GitHub Wiki repository.
 
 on:
   push:
@@ -7,30 +6,35 @@ on:
     paths:
       - docs/**
 
-permissions:
-  contents: write
-
 jobs:
   sync-wiki:
-    name: Sync Docs to Wiki using Wiki Secret in Wiki Environment
-    environment: wiki
     runs-on: ubuntu-latest
+    environment: wiki
 
     steps:
-      - name: Checkout main repo
-        uses: actions/checkout@v4
+      # 1. Checkout main repository
+      - uses: actions/checkout@v4
 
+      # 2. Clone the wiki repo USING PAT DIRECTLY
       - name: Clone wiki repo
         run: |
           git clone https://x-access-token:${{ secrets.WIKI_PAT }}@github.com/${{ github.repository }}.wiki.git wiki
 
+      # 3. Sync docs → wiki and PUSH WITH EXPLICIT AUTH
       - name: Sync docs to wiki
         run: |
           rm -rf wiki/*
           cp -r docs/* wiki/
           cd wiki
+
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
+
           git add .
           git commit -m "Sync docs from main repo" || exit 0
-          git push
+
+          # CRITICAL: remove checkout auth
+          git config --local --unset-all http.https://github.com/.extraheader
+
+          # CRITICAL: push using PAT explicitly
+          git push https://x-access-token:${{ secrets.WIKI_PAT }}@github.com/${{ github.repository }}.wiki.git
