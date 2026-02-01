@@ -1,4 +1,4 @@
-name: markdown-lint
+name: Markdown lint
 run-name: Linting markdown files
 
 on:

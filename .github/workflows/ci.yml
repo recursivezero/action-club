@@ -9,6 +9,7 @@ on:
 
 jobs:
   node:
+    if: false # Disable direct execution
     uses: recursivezero/action-club/.github/workflows/node-ci.yml@main
     with:
       node-version: "20"
