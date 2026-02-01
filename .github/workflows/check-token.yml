@@ -1,5 +1,5 @@
+# .github/workflows/check-token.yml
 name: Check PAT Secret
-run-name: Verify Token validity and authenticity
 
 on:
   workflow_call:
