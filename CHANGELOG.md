@@ -218,3 +218,9 @@ All notable changes to this repository will be documented in this file.
 - chore: bump patch version
 - update wiki
 - docs: update changelog for v0.2.32
+
+## [v0.2.34] - Sun, Feb 01 2026
+
+- chore: bump patch version
+- wiki wf
+- docs: update changelog for v0.2.33
