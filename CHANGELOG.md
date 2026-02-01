@@ -266,3 +266,9 @@ All notable changes to this repository will be documented in this file.
 - chore: bump patch version
 - usage
 - docs: update changelog for v0.2.40
+
+## [v0.2.42] - Sun, Feb 01 2026
+
+- chore: bump patch version
+- use rsync
+- docs: update changelog for v0.2.41
