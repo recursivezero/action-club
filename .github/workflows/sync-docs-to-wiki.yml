@@ -6,6 +6,7 @@ on:
     branches: [main]
     paths:
       - docs/**
+  workflow_dispatch:
 
 jobs:
   sync-wiki:
@@ -20,6 +21,9 @@ jobs:
       - name: Clone wiki repo
         run: |
           git clone https://x-access-token:${{ secrets.WIKI_PAT }}@github.com/${{ github.repository }}.wiki.git wiki
+
+      - name: Debug repo url
+        run: echo "https://x-access-token:${{ secrets.WIKI_PAT }}@github.com/${{ github.repository }}.wiki.git"
 
       # 3. Sync docs → wiki and PUSH WITH EXPLICIT AUTH
       - name: Sync docs to wiki
