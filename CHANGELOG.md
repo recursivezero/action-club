@@ -242,3 +242,9 @@ All notable changes to this repository will be documented in this file.
 - chore: bump patch version
 - added workflow_dispatch
 - docs: update changelog for v0.2.36
+
+## [v0.2.38] - Sun, Feb 01 2026
+
+- chore: bump patch version
+- set x
+- docs: update changelog for v0.2.37
