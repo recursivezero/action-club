@@ -248,3 +248,9 @@ All notable changes to this repository will be documented in this file.
 - chore: bump patch version
 - set x
 - docs: update changelog for v0.2.37
+
+## [v0.2.39] - Sun, Feb 01 2026
+
+- chore: bump patch version
+- now check
+- docs: update changelog for v0.2.38
