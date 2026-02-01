@@ -22,5 +22,6 @@ jobs:
           else
             user=$(curl -s -H "Authorization: token ${{ secrets.token }}" https://api.github.com/user | jq -r .login)
             echo "✅ PAT is valid for user: $user"
+            echo "📦 Repo: ${{ github.repository }}"
             echo "::notice::🎉 PAT check passed!"
           fi
