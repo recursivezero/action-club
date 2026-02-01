@@ -200,3 +200,9 @@ All notable changes to this repository will be documented in this file.
 - chore: bump patch version
 - added permissions
 - docs: update changelog for v0.2.29
+
+## [v0.2.31] - Sun, Feb 01 2026
+
+- chore: bump patch version
+- update docs
+- docs: update changelog for v0.2.30
