@@ -272,3 +272,9 @@ All notable changes to this repository will be documented in this file.
 - chore: bump patch version
 - use rsync
 - docs: update changelog for v0.2.41
+
+## [v0.2.43] - Sun, Feb 01 2026
+
+- chore: bump patch version
+- update HOME.md
+- docs: update changelog for v0.2.42
