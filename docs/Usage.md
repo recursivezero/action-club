@@ -5,7 +5,6 @@
 - use this action-club workflow inside `steps[].uses` key as below
 
 ```yml
-
 name: markdown-lint
 run-name: Linting markdown files
 
@@ -26,6 +25,6 @@ jobs:
 
       - name: Lint Markdown files
         uses: recursivezero/action-club/.github/actions/test-token@main
-
-
 ```
+
+hope it helps.

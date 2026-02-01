@@ -20,17 +20,26 @@ jobs:
       - name: Checkout main repo
         uses: actions/checkout@v4
 
-      - name: Clone wiki
+      - name: Clone wiki repo
+        env:
+          WIKI_PAT: ${{ secrets.WIKI_PAT }}
         run: |
-          git clone https://x-access-token:${{ secrets.WIKI_PAT }}@github.com/${{ github.repository }}.wiki.git wiki
+          git clone https://x-access-token:$WIKI_PAT@github.com/${{ github.repository }}.wiki.git wiki
 
       - name: Sync docs to wiki
+        env:
+          WIKI_PAT: ${{ secrets.WIKI_PAT }}
         run: |
           rm -rf wiki/*
           cp -r docs/* wiki/
           cd wiki
+
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
+
           git add .
           git commit -m "Sync docs from main repo" || exit 0
+
+          # 🔐 re-bind auth for push (required)
+          git remote set-url origin https://x-access-token:$WIKI_PAT@github.com/${{ github.repository }}.wiki.git
           git push
