@@ -27,4 +27,4 @@ jobs:
         uses: recursivezero/action-club/.github/actions/test-token@main
 ```
 
-hope it helps...
+hope it helps
