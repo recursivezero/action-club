@@ -37,10 +37,10 @@ jobs:
           git config user.email "github-actions@github.com"
 
           git add .
-          git commit -m "Sync docs from main repo" || exit 0
+          git commit -m "Sync docs from main repo" || true
 
           # CRITICAL: remove checkout auth
-          git config --local --unset-all http.https://github.com/.extraheader
+          git config --local --unset-all http.https://github.com/.extraheader || true
 
           # CRITICAL: push using PAT explicitly
           git push https://x-access-token:${{ secrets.WIKI_PAT }}@github.com/${{ github.repository }}.wiki.git HEAD
