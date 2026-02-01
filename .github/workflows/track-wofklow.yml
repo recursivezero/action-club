@@ -1,0 +1,15 @@
+name: Track Reusable Workflow Usage
+
+on:
+  repository_dispatch:
+    types: [workflow_invoked]
+
+jobs:
+  log-usage:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print invocation details
+        run: |
+          echo "Reusable workflow invoked!"
+          echo "Caller repo: ${{ github.event.client_repo }}"
+          echo "Run ID: ${{ github.event.run_id }}"
