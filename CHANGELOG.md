@@ -182,3 +182,9 @@ All notable changes to this repository will be documented in this file.
 - [main]: Merge branch 'main' of github.rz:recursivezero/action-club
 - [main]: track reusable workflow
 - docs: update changelog for v0.2.26
+
+## [v0.2.28] - Sun, Feb 01 2026
+
+- chore: bump patch version
+- [main]: update track  approach
+- docs: update changelog for v0.2.27
