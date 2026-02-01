@@ -11,5 +11,5 @@ jobs:
       - name: Print invocation details
         run: |
           echo "Reusable workflow invoked!"
-          echo "Caller repo: ${{ github.event.client_repo }}"
-          echo "Run ID: ${{ github.event.run_id }}"
+          echo "Caller repo: ${{ github.event.client_payload.client_repo }}"
+          echo "Run ID: ${{ github.event.client_payload.run_id }}"
