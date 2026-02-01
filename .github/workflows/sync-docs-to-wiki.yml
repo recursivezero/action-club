@@ -1,4 +1,5 @@
 name: Sync docs to wiki
+run-name: Sync documentation files from the main repository to the GitHub Wiki repository.
 
 on:
   push:
@@ -18,7 +19,7 @@ jobs:
 
       - name: Clone wiki
         run: |
-          git clone https://x-access-token:${{ secrets.WIKI_SECRET }}@github.com/${{ github.repository }}.wiki.git wiki
+          git clone https://x-access-token:${{ secrets.WIKI_PAT }}@github.com/${{ github.repository }}.wiki.git wiki
 
       - name: Sync docs to wiki
         run: |
