@@ -1,4 +1,5 @@
 name: Sync docs to wiki
+run-name: Sync docs to wiki repository
 
 on:
   push:
@@ -37,4 +38,4 @@ jobs:
           git config --local --unset-all http.https://github.com/.extraheader
 
           # CRITICAL: push using PAT explicitly
-          git push https://x-access-token:${{ secrets.WIKI_PAT }}@github.com/${{ github.repository }}.wiki.git
+          git push https://x-access-token:${{ secrets.WIKI_PAT }}@github.com/${{ github.repository }}.wiki.git HEAD

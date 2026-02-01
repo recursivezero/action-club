@@ -22,4 +22,4 @@ If your project has opinions, design principles, constraints — this is gold he
 
 RecursiveZero
 
-@copy; 2026 |
+@copy; 2026
