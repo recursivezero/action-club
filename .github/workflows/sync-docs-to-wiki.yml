@@ -1,0 +1,32 @@
+name: Sync docs to wiki
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - docs/**
+
+jobs:
+  sync-wiki:
+    name: Sync Docs to Wiki using Wiki Secret in Wiki Environment
+    environment: wiki
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout main repo
+        uses: actions/checkout@v4
+
+      - name: Clone wiki
+        run: |
+          git clone https://x-access-token:${{ secrets.WIKI_SECRET }}@github.com/${{ github.repository }}.wiki.git wiki
+
+      - name: Sync docs to wiki
+        run: |
+          rm -rf wiki/*
+          cp -r docs/* wiki/
+          cd wiki
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+          git add .
+          git commit -m "Sync docs from main repo" || exit 0
+          git push
