@@ -1,9 +1,10 @@
+name: Check PAT Secret
+
 on:
   workflow_call:
-    inputs:
+    secrets:
       token:
         required: true
-        type: string
 
 jobs:
   test-pat:
@@ -12,14 +13,14 @@ jobs:
       - name: Test if PAT works
         run: |
           status=$(curl -s -o /dev/null -w "%{http_code}" \
-            -H "Authorization: token ${{ inputs.token }}" \
+            -H "Authorization: token ${{ secrets.token }}" \
             https://api.github.com/user)
 
           if [ "$status" -ne 200 ]; then
             echo "❌ PAT is invalid or missing (status: $status)"
             exit 1
           else
-            user=$(curl -s -H "Authorization: token ${{ inputs.token }}" https://api.github.com/user | jq -r .login)
+            user=$(curl -s -H "Authorization: token ${{ secrets.token }}" https://api.github.com/user | jq -r .login)
             echo "✅ PAT is valid for user: $user"
             echo "::notice::🎉 PAT check passed!"
           fi
