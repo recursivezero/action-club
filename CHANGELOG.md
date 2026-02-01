@@ -143,3 +143,10 @@ All notable changes to this repository will be documented in this file.
 - chore: bump patch version
 - [main]: docs folder added; reusable workflow
 - docs: update changelog for v0.2.20
+
+## [v0.2.22] - Sun, Feb 01 2026
+
+- chore: bump patch version
+- [main]: Merge branch 'main' of github.rz:recursivezero/action-club
+- [main]: update filename
+- docs: update changelog for v0.2.21
