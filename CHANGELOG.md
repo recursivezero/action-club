@@ -291,3 +291,10 @@ All notable changes to this repository will be documented in this file.
 - added greet
 - greeting
 - docs: update changelog for v0.2.44
+
+## [v0.2.46] - Tue, Feb 03 2026
+
+- chore: bump patch version
+- [main]: Merge branch 'main' of github.rz:recursivezero/action-club
+- [main]: added workflow docs
+- docs: update changelog for v0.2.45
