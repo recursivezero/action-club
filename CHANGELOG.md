@@ -298,3 +298,10 @@ All notable changes to this repository will be documented in this file.
 - [main]: Merge branch 'main' of github.rz:recursivezero/action-club
 - [main]: added workflow docs
 - docs: update changelog for v0.2.45
+
+## [v0.2.47] - Tue, Feb 03 2026
+
+- chore: bump patch version
+- [main]: Merge branch 'main' of github.rz:recursivezero/action-club
+- [main]: configure git user for wiki pages
+- docs: update changelog for v0.2.46
