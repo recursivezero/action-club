@@ -11,6 +11,10 @@ on:
         description: "Issue number"
         required: true
         type: number
+      comment_body:
+        description: "Comment text"
+        required: true
+        type: string
 
 permissions:
   issues: write
@@ -29,8 +33,12 @@ jobs:
               ? parseInt(context.payload.inputs.issue_number, 10)
               : context.issue.number;
 
+            const body = context.payload.inputs?.comment_body 
+              ? context.payload.inputs.comment_body 
+              : "👋 Thank you for opening this issue! We will look into it as soon as possible.";
+
             await github.rest.issues.createComment({
               ...context.repo,
               issue_number,
-              body: "👋 Thank you for opening this issue! We will look into it as soon as possible."
+              body
             });
