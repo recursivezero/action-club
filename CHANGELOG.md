@@ -278,3 +278,9 @@ All notable changes to this repository will be documented in this file.
 - chore: bump patch version
 - update HOME.md
 - docs: update changelog for v0.2.42
+
+## [v0.2.44] - Tue, Feb 03 2026
+
+- chore: bump patch version
+- context check
+- docs: update changelog for v0.2.43
