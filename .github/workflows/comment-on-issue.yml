@@ -23,9 +23,9 @@ jobs:
   comment:
     runs-on: ubuntu-latest
     steps:
-      - name: Post comments by user.
+      - name: Post comments manually
         uses: actions/github-script@v8
-        if: ${{ github.event_name == 'issues' }}
+        if: ${{ github.event_name == 'workflow_dispatch' }}
         with:
           script: |
             const issue_number = parseInt(context.payload.inputs.issue_number, 10);
@@ -36,8 +36,8 @@ jobs:
               body
             });
 
-      - name: Post comment with bash
-        if: ${{ github.event_name == 'workflow_dispatch' }}
+      - name: Post comment manually
+        if: ${{ github.event_name == 'issues' }}
         run: |
           issue_number=${{ github.event.issue.number }}
           body="👋 Thank you for opening this issue! We will look into it as soon as possible."
