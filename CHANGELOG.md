@@ -311,3 +311,15 @@ All notable changes to this repository will be documented in this file.
 - chore: bump patch version
 - [main]: using js in actions
 - docs: update changelog for v0.2.47
+
+## [v0.2.51] - Wed, Feb 04 2026
+
+- chore: bump patch version
+- [main]: bump version workflow
+- [main]: added badge
+- [main]: change condition
+- [main]: added bash and script both
+- [main]: added badge
+- [main]: Merge branch 'main' of github.rz:recursivezero/action-club
+- [main]: added comment body
+- docs: update changelog for v0.2.48
