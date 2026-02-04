@@ -1,6 +1,10 @@
 # Action Club
 
-[![Auto Format Issue Title](https://github.com/recursivezero/action-club/actions/workflows/format-issue-title.yml/badge.svg?event=create)][Action file]
+[![Auto Format Issue Title](https://github.com/recursivezero/action-club/actions/workflows/format-issue-title.yml/badge.svg)](https://github.com/recursivezero/action-club/actions/workflows/format-issue-title.yml)
+
+[![Comment on Issue](https://github.com/recursivezero/action-club/actions/workflows/comment-on-issue.yml/badge.svg)](https://github.com/recursivezero/action-club/actions/workflows/comment-on-issue.yml)
+
+[![Assign Project](https://github.com/recursivezero/action-club/actions/workflows/auto-assign-project.yml/badge.svg)](https://github.com/recursivezero/action-club/actions/workflows/auto-assign-project.yml)
 
 ![Action][action]
 ![License][license]
@@ -72,4 +76,3 @@ See what’s new in each version: [CHANGELOG.md](./CHANGELOG.md)
 [issues]: https://badgen.net/github/open-issues/recursivezero/action-club
 [PR]: https://badgen.net/github/prs/recursivezero/action-club
 [commits]: https://badgen.net/github/commits/recursivezero/action-club/main?color=green
-[Action file]: https://github.com/recursivezero/action-club/actions/workflows/format-issue-title.yml
