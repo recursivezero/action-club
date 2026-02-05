@@ -1,0 +1,12 @@
+name: Sync Labels
+run-name: Add new Labels
+
+on:
+  workflow_dispatch:
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./github/actions/label-sync

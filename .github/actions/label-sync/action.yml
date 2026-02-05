@@ -1,0 +1,23 @@
+name: "Label Sync"
+description: "Create or update labels from labels.yml"
+runs:
+  using: "composite"
+  steps:
+    - name: Install jq
+      run: sudo apt-get install -y jq
+      shell: bash
+
+    - name: Read labels.yml and create labels
+      run: |
+        for row in $(yq -c '.[]' ./labels.yml); do
+          name=$(echo $row | jq -r '.name')
+          color=$(echo $row | jq -r '.color')
+          description=$(echo $row | jq -r '.description')
+
+          echo "Creating label: $name"
+          gh label create "$name" --color "$color" --description "$description" || \
+          gh label edit "$name" --color "$color" --description "$description"
+        done
+      shell: bash
+      env:
+        GITHUB_TOKEN: ${{ github.token }}
