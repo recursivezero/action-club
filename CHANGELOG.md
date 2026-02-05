@@ -340,3 +340,10 @@ All notable changes to this repository will be documented in this file.
 - [main]: added GITHUb_ENV to run action manually
 - [main]: remove @ref
 - docs: update changelog for v0.2.51
+
+## [v0.2.53] - Thu, Feb 05 2026
+
+- chore: bump patch version
+- [main]: Merge branch 'main' of github.rz:recursivezero/action-club
+- [main]: remove ref
+- docs: update changelog for v0.2.52
