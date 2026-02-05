@@ -11,6 +11,7 @@ on:
         description: "Issue number"
         required: true
         type: number
+
       comment_body:
         description: "Comment text"
         required: true

@@ -1,11 +1,5 @@
 # Action Club
 
-[![Auto Format Issue Title](https://github.com/recursivezero/action-club/actions/workflows/format-issue-title.yml/badge.svg)](https://github.com/recursivezero/action-club/actions/workflows/format-issue-title.yml)
-
-[![Comment on Issue](https://github.com/recursivezero/action-club/actions/workflows/comment-on-issue.yml/badge.svg)](https://github.com/recursivezero/action-club/actions/workflows/comment-on-issue.yml)
-
-[![Assign Project](https://github.com/recursivezero/action-club/actions/workflows/auto-assign-project.yml/badge.svg)](https://github.com/recursivezero/action-club/actions/workflows/auto-assign-project.yml)
-
 ![Action][action]
 ![License][license]
 ![Open Issues][issues]
@@ -67,9 +61,9 @@ This workflow runs when we push code into `main` branch then it update the packa
 
 See what’s new in each version: [CHANGELOG.md](./CHANGELOG.md)
 
-> :copyright: _RecursiveZero_ Private Limited
+:copyright: _RecursiveZero_ Private Limited
 
-> <!-- References -->
+<!-- References -->
 
 [action]: https://badgen.net/badge/icon/github?icon=github&label=action
 [license]: https://badgen.net/github/license/recursivezero/action-club

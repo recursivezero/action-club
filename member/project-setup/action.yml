@@ -32,7 +32,6 @@ runs:
       run: |
         # 1. Grant execute permissions to the shell script in the action folder
         chmod +x ${{ github.action_path }}/project-init.sh
-
         # 2. Execute the logic script with passed arguments
         # Argument 1: URL, Argument 2: Number, Argument 3: Status Name
         ${{ github.action_path }}/project-init.sh \
