@@ -4,17 +4,21 @@ runs:
   using: "composite"
   steps:
     - name: Install dependencies
-      run: sudo apt-get install -y jq yq
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y jq yq gh
       shell: bash
 
     - name: Apply labels
       run: |
-        for row in $(yq -c '.[]' $GITHUB_ACTION_PATH/labels.yml); do
-          name=$(echo $row | jq -r '.name')
-          color=$(echo $row | jq -r '.color')
-          description=$(echo $row | jq -r '.description')
+        # Read each label definition from labels.yml
+        yq -c '.[]' "$GITHUB_ACTION_PATH/labels.yml" | while read row; do
+          name=$(echo "$row" | jq -r '.name')
+          color=$(echo "$row" | jq -r '.color')
+          description=$(echo "$row" | jq -r '.description')
 
           echo "Syncing label: $name"
+          # Try to create, if exists then edit
           gh label create "$name" --color "$color" --description "$description" || \
           gh label edit "$name" --color "$color" --description "$description"
         done
