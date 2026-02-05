@@ -24,7 +24,7 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Lint Markdown files
-        uses: recursivezero/action-club/.github/actions/test-token@main
+        uses: recursivezero/action-club/.github/actions/test-token
 ```
 
 hope it helps.

@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Format issue title
-        uses: recursivezero/action-club/.github/actions/format-issue-title@main
+        uses: recursivezero/action-club/.github/actions/format-issue-title
         with:
           prefix: RAC # change this as per your convention
           dry_run: false
