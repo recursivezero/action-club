@@ -5,6 +5,13 @@ on:
   create:
     ref_type: branch # Triggers when a branch is created not tag
 
+  workflow_dispatch:
+    inputs:
+      branch_name:
+        description: "Branch Name"
+        required: true
+        type: string
+
 permissions:
   issues: write # Required to comment and add labels
   contents: read # Required to read the repo metadata
@@ -16,10 +23,13 @@ jobs:
       - name: Checkout Repo
         uses: actions/checkout@v4
 
+      - name: Set branch name
+        run: echo "BRANCH_NAME=${{ github.event.inputs.branch_name || github.event.ref }}" >> $GITHUB_ENV
+
       - name: Link Branch to Issue
         # Point this to your centralized repository
         uses: recursivezero/action-club/.github/actions/branch-notify
         with:
           issue_prefix: "RAC" # change this as per your convention
-          branch_name: ${{ github.event.ref }}
+          branch_name: ${{ env.BRANCH_NAME }}
           dry_run: false
