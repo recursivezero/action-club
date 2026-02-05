@@ -20,7 +20,6 @@ inputs:
     required: false
     default: ""
 
-
 runs:
   using: "composite"
   steps:
@@ -44,6 +43,12 @@ runs:
       shell: bash
       run: chmod +x ${{ github.action_path }}/bump.sh
 
+    - name: Pre‑commit any changes
+      shell: bash
+      run: |
+        git add -A
+        git commit -m "chore: prepare for version bump" || true
+
     - name: Bump version
       if: ${{ inputs.enable-bump == 'true' }}
       shell: bash
@@ -56,8 +61,11 @@ runs:
     - name: Update CHANGELOG
       if: ${{ inputs.enable-changelog == 'true' }}
       shell: bash
-      run: ${{ github.action_path }}/changelog.sh
+      run: |
+        ${{ github.action_path }}/changelog.sh
+        git add CHANGELOG.md || true
+        git commit -m "chore: update changelog" || true
 
-    - name: Push changes
+    - name: Push changes and tags
       shell: bash
       run: git push --follow-tags

@@ -55,6 +55,10 @@ for that ; create a Classic Token for account and then create a secrets in the r
 
 This workflow runs when we push code into `main` branch then it update the package.json version and also update changelog.md file
 
+## label-sync
+
+This workflow add new labels defined in labels.yml
+
 ###
 
 ## Changelog
