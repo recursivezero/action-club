@@ -3,18 +3,18 @@ description: "Create or update labels from labels.yml"
 runs:
   using: "composite"
   steps:
-    - name: Install jq
-      run: sudo apt-get install -y jq
+    - name: Install dependencies
+      run: sudo apt-get install -y jq yq
       shell: bash
 
-    - name: Read labels.yml and create labels
+    - name: Apply labels
       run: |
-        for row in $(yq -c '.[]' ./labels.yml); do
+        for row in $(yq -c '.[]' $GITHUB_ACTION_PATH/labels.yml); do
           name=$(echo $row | jq -r '.name')
           color=$(echo $row | jq -r '.color')
           description=$(echo $row | jq -r '.description')
 
-          echo "Creating label: $name"
+          echo "Syncing label: $name"
           gh label create "$name" --color "$color" --description "$description" || \
           gh label edit "$name" --color "$color" --description "$description"
         done
