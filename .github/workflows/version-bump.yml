@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Run bump-version action
-        uses: recursivezero/action-club/.github/actions/bump-version
+        uses: ./.github/actions/bump-version
         with:
           node-version: "18"
           enable-bump: "true"

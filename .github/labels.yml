@@ -1,0 +1,15 @@
+- name: story
+  color: 1d76db
+  description: User story or narrative work
+
+- name: development
+  color: 0e8a16
+  description: Active development work
+
+- name: future
+  color: fbca04
+  description: Planned for future consideration
+
+- name: research
+  color: d93f0b
+  description: Investigation or exploration
