@@ -30,4 +30,4 @@ jobs:
           node-version: "20"
 
       - name: Lint Markdown files
-        uses: ./.github/actions/md-lint@main
+        uses: ./.github/actions/md-lint
