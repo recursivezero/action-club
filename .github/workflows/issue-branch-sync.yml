@@ -28,7 +28,7 @@ jobs:
 
       - name: Link Branch to Issue
         # Point this to your centralized repository
-        uses: recursivezero/action-club/.github/actions/branch-notify
+        uses: ./.github/actions/branch-notify
         with:
           issue_prefix: "RAC" # change this as per your convention
           branch_name: ${{ env.BRANCH_NAME }}

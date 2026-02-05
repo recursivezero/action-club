@@ -30,4 +30,4 @@ jobs:
           node-version: "20"
 
       - name: Lint Markdown files
-        uses: recursivezero/action-club/.github/actions/md-lint
+        uses: ./.github/actions/md-lint@main
