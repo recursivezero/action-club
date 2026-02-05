@@ -323,3 +323,20 @@ All notable changes to this repository will be documented in this file.
 - [main]: Merge branch 'main' of github.rz:recursivezero/action-club
 - [main]: added comment body
 - docs: update changelog for v0.2.48
+
+## [v0.2.52] - Thu, Feb 05 2026
+
+- chore: bump patch version
+- chore: prepare for version bump
+- [main]: bump update with readme
+- [main]: update README
+- [main]: added permission
+- [main]: update jq script
+- [main]: path issues
+- [main]: update syntax
+- [main]: new label workflow added
+- [main]: added labels.yml and remove invalid label from BUG_REPORT template
+- [main]: added relative path of composite actions
+- [main]: added GITHUb_ENV to run action manually
+- [main]: remove @ref
+- docs: update changelog for v0.2.51
