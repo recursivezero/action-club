@@ -21,6 +21,8 @@ jobs:
           GH_TOKEN: ${{ secrets.RZ_PROJECT }}
         uses: ./.github/actions/project-setup
         with:
+          project_owner: ${{ github.repository_owner }} # actor as owner
+          project_number: 1 # check using  gh project list --owner recursivezero
           issue_url: ${{ github.event.issue.html_url || github.event.pull_request.html_url }}
           issue_number: ${{ github.event.issue.number || github.event.pull_request.number }}
           # Logic: If it is a PR, use 'In Progress'. Otherwise, use 'Todo'.

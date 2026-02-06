@@ -1,11 +1,18 @@
-name: "Local Project Setup"
-description: "Links Issues or PRs to a User Project and assigns a specific column status."
+name: "Project Assignment"
+description: "Links Issues or PRs to the Project and its status."
 author: "recursivezero"
 
 # ==============================================================================
 # INPUTS: Defines the data required to run this action
 # ==============================================================================
 inputs:
+  project_owner:
+    description: "The owner of the project (user or org)"
+    required: true
+    default: ${{ github.repository_owner }}
+  project_number:
+    description: "The numeric project number (e.g. 1, 2, 3)"
+    required: true
   issue_url:
     description: "The full HTML URL of the Issue or Pull Request to be linked."
     required: true
@@ -36,6 +43,17 @@ runs:
         # 2. Execute the logic script with passed arguments
         # Argument 1: URL, Argument 2: Number, Argument 3: Status Name
         ${{ github.action_path }}/project-init.sh \
+          "${{ inputs.project_owner }}" \
+          "${{ inputs.project_number }}" \
           "${{ inputs.issue_url }}" \
           "${{ inputs.issue_number }}" \
           "${{ inputs.target_status }}"
+
+        # Write summary 
+        { 
+          echo "### Project Setup Summary" 
+          echo "" 
+          echo "- Linked Issue/PR: [${{ inputs.issue_number }}](${{ inputs.issue_url }})" 
+          echo "- Target Status Column: \`${{ inputs.target_status }}\`" 
+          echo "- ✅ Linked to new project ID: ${{ inputs.project_number }}"
+        } >> $GITHUB_STEP_SUMMARY

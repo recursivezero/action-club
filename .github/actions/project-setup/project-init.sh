@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e
 
 # ==============================================================================
 # SCRIPT: project-init.sh
@@ -7,13 +8,12 @@
 # ==============================================================================
 
 # Assign arguments to meaningful variable names
-ITEM_URL=$1
-ITEM_NUM=$2
-TARGET_STATUS=$3
 
-# Project Configuration
-PROJECT_OWNER="recursivezero"
-PROJECT_NUMBER=1
+PROJECT_OWNER="$1" 
+PROJECT_NUMBER="$2"
+ITEM_URL="$3" # Issue or PR url
+ISSUE_NUMBER="$4"
+TARGET_STATUS="$5"
 
 echo "--- STARTING PROJECT INITIALIZATION ---"
 echo "📍 Item: $ITEM_URL"
@@ -50,6 +50,6 @@ if run_automation; then
 else
   echo "❌ Error: Automation failed. Posting fallback comment..."
   # If it fails, post a comment to the issue/PR so the human knows.
-  gh issue comment "$ITEM_NUM" --body "⚠️ **Automation Note**: Failed to link this to Project #$PROJECT_NUMBER with status '$TARGET_STATUS'. Please check Action logs."
+  gh issue comment "$ISSUE_NUMBER" --body "⚠️ **Automation Note**: Failed to link this to Project #$PROJECT_NUMBER with status '$TARGET_STATUS'. Please check Action logs."
   exit 1
 fi
