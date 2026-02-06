@@ -347,3 +347,9 @@ All notable changes to this repository will be documented in this file.
 - [main]: Merge branch 'main' of github.rz:recursivezero/action-club
 - [main]: remove ref
 - docs: update changelog for v0.2.52
+
+## [v0.2.54] - Fri, Feb 06 2026
+
+- chore: bump patch version
+- [main]: added GITHUB_STEP_SUMMARY and ::
+- docs: update changelog for v0.2.53
