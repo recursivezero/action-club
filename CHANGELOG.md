@@ -367,3 +367,10 @@ All notable changes to this repository will be documented in this file.
 - [main]: Merge branch 'main' of github.rz:recursivezero/action-club
 - [main]: set project owner as github repository owner
 - docs: update changelog for v0.2.55
+
+## [v0.2.57] - Fri, Feb 06 2026
+
+- chore: bump patch version
+- [main]: Merge branch 'main' of github.rz:recursivezero/action-club
+- [main]: update project script
+- docs: update changelog for v0.2.56
