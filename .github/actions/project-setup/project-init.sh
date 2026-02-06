@@ -9,7 +9,7 @@ set -e
 
 # Assign arguments to meaningful variable names
 
-PROJECT_OWNER="$1" 
+PROJECT_OWNER="${1:-$GITHUB_REPOSITORY_OWNER}"
 PROJECT_NUMBER="$2"
 ITEM_URL="$3" # Issue or PR url
 ISSUE_NUMBER="$4"
