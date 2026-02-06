@@ -1,0 +1,18 @@
+name: "Action Club"
+description: "Contains multiple actions. See README for usage."
+author: "recursivezero"
+
+branding:
+  icon: "activity"
+  color: "gray-dark"
+
+runs:
+  using: "composite"
+  steps:
+    - name: Action-Club
+      id: action-club
+      run: |
+        echo "See README for available actions:"
+        echo " - action-a"
+        echo " - action-b"
+      shell: bash
