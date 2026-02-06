@@ -52,7 +52,22 @@ runs:
     - name: Bump version
       if: ${{ inputs.enable-bump == 'true' }}
       shell: bash
-      run: ${{ github.action_path }}/bump.sh
+      run: | 
+        set +e # don’t exit immediately on error 
+        ${{ github.action_path }}/bump.sh 
+        status=$? 
+        set -e 
+        
+        if [ $status -ne 0 ]; then 
+          echo "::warning::Version bump failed with exit code $status" 
+          exit $status 
+        else 
+          echo "::notice::Version bump completed successfully" 
+          { 
+            echo "### Bump Version Result" 
+            echo "- ✅ Completed successfully" 
+          } >> $GITHUB_STEP_SUMMARY
+        fi
 
     - name: Make changelog script executable
       shell: bash
