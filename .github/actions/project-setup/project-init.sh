@@ -50,6 +50,9 @@ if run_automation; then
 else
   echo "❌ Error: Automation failed. Posting fallback comment..."
   # If it fails, post a comment to the issue/PR so the human knows.
-  gh issue comment "$ISSUE_NUMBER" --body "⚠️ **Automation Note**: Failed to link this to Project #$PROJECT_NUMBER with status '$TARGET_STATUS'. Please check Action logs."
+  gh issue comment "$ISSUE_NUMBER" \
+  --repo "$GITHUB_REPOSITORY" \
+  --body "⚠️ **Automation Note**: Failed to link this to Project #$PROJECT_NUMBER with status '$TARGET_STATUS'. Please check Action logs."
+
   exit 1
 fi
