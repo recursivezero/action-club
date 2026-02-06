@@ -353,3 +353,10 @@ All notable changes to this repository will be documented in this file.
 - chore: bump patch version
 - [main]: added GITHUB_STEP_SUMMARY and ::
 - docs: update changelog for v0.2.53
+
+## [v0.2.55] - Fri, Feb 06 2026
+
+- chore: bump patch version
+- [main]: Merge branch 'main' of github.rz:recursivezero/action-club
+- [main]: Added Summary for project setup
+- docs: update changelog for v0.2.54
