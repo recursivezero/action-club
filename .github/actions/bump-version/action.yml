@@ -1,86 +1,69 @@
 name: bump-version
-description: Bump version and optionally update changelog
-author: recursivezero
+description: "High-performance smart version bumper"
+author: "recursivezero"
 
 inputs:
   node-version:
-    description: "Node.js version to use"
-    required: false
+    description: "Node.js version"
     default: "18"
   enable-bump:
-    description: "Run version bump step"
-    required: false
+    description: "whether bump is enabled"
     default: "true"
   enable-changelog:
-    description: "Run changelog update step"
-    required: false
+    description: "whether changelog to write or not"
     default: "true"
-  bump-type:
-    description: "Version bump type (patch, minor, major). If not set, commit message decides."
-    required: false
-    default: ""
 
 runs:
   using: "composite"
   steps:
-    - name: Checkout
-      uses: actions/checkout@v4
-      with:
-        fetch-depth: 0
+    - name: Environment Detection
+      id: env
+      shell: bash
+      run: |
+        if [ -f "package.json" ]; then
+          echo "is_node=true" >> $GITHUB_OUTPUT
+        else
+          echo "is_node=false" >> $GITHUB_OUTPUT
+        fi
 
-    - name: Setup Node
+    - name: Setup Node.js Runtime
+      if: steps.env.outputs.is_node == 'true'
       uses: actions/setup-node@v4
       with:
         node-version: ${{ inputs.node-version }}
+        cache: "npm"
 
-    - name: Configure Git identity
+    - name: Execute Versioning Suite
+      if: steps.env.outputs.is_node == 'true'
       shell: bash
+      env:
+        INPUT_ENABLE_BUMP: ${{ inputs.enable-bump }}
+        INPUT_ENABLE_CHANGELOG: ${{ inputs.enable-changelog }}
+        ACTION_PATH: ${{ github.action_path }}
       run: |
+        # 1. Identity Config
         git config --global user.email "github-actions[bot]@users.noreply.github.com"
         git config --global user.name "github-actions[bot]"
 
-    - name: Make bump script executable
-      shell: bash
-      run: chmod +x ${{ github.action_path }}/bump.sh
+        # 2. Permissions
+        chmod +x $ACTION_PATH/bump.sh $ACTION_PATH/changelog.sh
 
-    - name: Pre‑commit any changes
-      shell: bash
-      run: |
+        # 3. Pre-bump commit
         git add -A
         git commit -m "chore: prepare for version bump" || true
 
-    - name: Bump version
-      if: ${{ inputs.enable-bump == 'true' }}
-      shell: bash
-      run: | 
-        set +e # don’t exit immediately on error 
-        ${{ github.action_path }}/bump.sh 
-        status=$? 
-        set -e 
-        
-        if [ $status -ne 0 ]; then 
-          echo "::warning::Version bump failed with exit code $status" 
-          exit $status 
-        else 
-          echo "::notice::Version bump completed successfully" 
-          { 
-            echo "### Bump Version Result" 
-            echo "- ✅ Completed successfully" 
-          } >> $GITHUB_STEP_SUMMARY
+        # 4. Bump Execution
+        if [ "$INPUT_ENABLE_BUMP" = "true" ]; then
+          $ACTION_PATH/bump.sh
+          echo "### Bump Result: ✅ Success" >> $GITHUB_STEP_SUMMARY
         fi
 
-    - name: Make changelog script executable
-      shell: bash
-      run: chmod +x ${{ github.action_path }}/changelog.sh
+        # 5. Changelog Execution
+        if [ "$INPUT_ENABLE_CHANGELOG" = "true" ]; then
+          $ACTION_PATH/changelog.sh
+          git add CHANGELOG.md || true
+          git commit -m "chore: update changelog" || true
+        fi
 
-    - name: Update CHANGELOG
-      if: ${{ inputs.enable-changelog == 'true' }}
-      shell: bash
-      run: |
-        ${{ github.action_path }}/changelog.sh
-        git add CHANGELOG.md || true
-        git commit -m "chore: update changelog" || true
-
-    - name: Push changes and tags
-      shell: bash
-      run: git push --follow-tags
+        # 6. Final Sync
+        git push --follow-tags
