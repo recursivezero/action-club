@@ -1,10 +1,9 @@
 name: "Comment on Issue"
-run-name: Comment under an issue with conditional job events
+run-name: "Comment under an Issue"
 
 on:
   issues:
     types: [opened]
-
   workflow_dispatch:
     inputs:
       issue_number:
@@ -23,26 +22,12 @@ jobs:
   comment:
     runs-on: ubuntu-latest
     steps:
-      - name: Post comments manually
-        uses: actions/github-script@v8
-        if: ${{ github.event_name == 'workflow_dispatch' }}
-        with:
-          script: |
-            const issue_number = parseInt(context.payload.inputs.issue_number, 10);
-            const body = context.payload.inputs.comment_body;
-            await github.rest.issues.createComment({
-              ...context.repo,
-              issue_number,
-              body
-            });
+      - name: Checkout # Required for local actions, optional for remote
+        uses: actions/checkout@v4
 
-      - name: Post comment manually
-        if: ${{ github.event_name == 'issues' }}
-        run: |
-          issue_number=${{ github.event.issue.number }}
-          body="👋 Thank you for opening this issue! We will look into it as soon as possible."
-          curl -X POST \
-            -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
-            -H "Accept: application/vnd.github+json" \
-            https://api.github.com/repos/${{ github.repository }}/issues/$issue_number/comments \
-            -d "{\"body\":\"$body\"}"
+      - name: Run Comment Action
+        uses: ./.github/actions/comment-on-issue # Replace with your repo path
+        with:
+          issue_number: ${{ github.event.inputs.issue_number }}
+          comment_body: ${{ github.event.inputs.comment_body }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}

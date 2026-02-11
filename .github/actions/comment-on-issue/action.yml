@@ -1,0 +1,42 @@
+name: "Universal Issue Commenter"
+description: "Handles both automated and manual issue commenting"
+
+inputs:
+  issue_number:
+    description: "The issue number to comment on"
+    required: false
+  comment_body:
+    description: "The text for the comment"
+    required: false
+  github_token:
+    description: "GitHub Token for authentication"
+    required: true
+    default: ${{ github.token }}
+
+runs:
+  using: "composite"
+  steps:
+    - name: Execute Comment Logic
+      uses: actions/github-script@v7
+      with:
+        github-token: ${{ inputs.github_token }}
+        script: |
+          const isDispatch = context.eventName === 'workflow_dispatch';
+          const issue_number = isDispatch 
+            ? parseInt("${{ inputs.issue_number }}", 10) 
+            : context.payload.issue?.number;
+
+          const body = isDispatch 
+            ? "${{ inputs.comment_body }}" 
+            : "👋 Thank you for opening this issue! We will look into it as soon as possible.";
+
+          if (!issue_number) {
+            core.setFailed("Could not determine issue number.");
+            return;
+          }
+
+          await github.rest.issues.createComment({
+            ...context.repo,
+            issue_number,
+            body
+          });
