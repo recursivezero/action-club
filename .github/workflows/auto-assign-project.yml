@@ -2,28 +2,58 @@ name: Assign Project
 run-name: Assign project under issue and pull requests
 
 on:
-  issues:
-    types: [opened]
-  pull_request_target:
-    types: [opened]
+  workflow_call:
+    inputs:
+      project_number:
+        required: true
+        type: number
+    secrets:
+      PROJECT_PAT:
+        required: true
 
 jobs:
+  issue-to-project:
+    if: github.event_name == 'issues'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Action Repo
+        uses: actions/checkout@v4
+        with:
+          repository: recursivezero/action-club
+          path: action-club
+
+      - name: Initialize Project for Issue
+        uses: ./.github/actions/project-setup
+        env:
+          # This allows GH CLI inside the action to work
+          GH_TOKEN: ${{ secrets.PROJECT_PAT }}
+        with:
+          project_number: 1
+          issue_url: ${{ github.event.issue.html_url }}
+          issue_number: ${{ github.event.issue.number }}
+          target_status: "Todo"
+          project_token: ${{ secrets.PROJECT_PAT }}
+
   link-to-project:
-    name: Auto-link to Project Threadzip
+    name: PR to Project
+    if: github.event_name == 'pull_request_target'
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout Code
+      - name: Checkout Action Repo
         uses: actions/checkout@v4
+        with:
+          repository: recursivezero/action-club
+          path: action-club
 
       - name: Initialize Project Sidebar & Status
-        env:
-          GH_TOKEN: ${{ secrets.RZ_PROJECT }}
         uses: ./.github/actions/project-setup
+        env:
+          # Injecting the secret for GH CLI
+          GH_TOKEN: ${{ secrets.PROJECT_PAT }}
         with:
           project_number: 1 # check using  gh project list --owner recursivezero
           issue_url: ${{ github.event.issue.html_url || github.event.pull_request.html_url }}
           issue_number: ${{ github.event.issue.number || github.event.pull_request.number }}
-          # Logic: If it is a PR, use 'In Progress'. Otherwise, use 'Todo'.
-          target_status: ${{ github.event_name == 'pull_request' && 'In Progress' || 'Todo' }}
-          project_token: ${{ secrets.RZ_PROJECT }}
+          target_status: "In Progress"
+          project_token: ${{ secrets.PROJECT_PAT }}
