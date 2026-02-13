@@ -1,17 +1,10 @@
 #!/bin/bash
 set -e
 
-# ==============================================================================
-# SCRIPT: project-init.sh
-# DESCRIPTION: Connects an item to Project 1 and moves it to a specific column.
-# USAGE: ./project-init.sh <URL> <NUMBER> <STATUS>
-# ==============================================================================
-
-# Assign arguments to meaningful variable names
-
+# Arguments
 PROJECT_OWNER="${1:-$GITHUB_REPOSITORY_OWNER}"
 PROJECT_NUMBER="$2"
-ITEM_URL="$3" # Issue or PR url
+ITEM_URL="$3" 
 ISSUE_NUMBER="$4"
 TARGET_STATUS="$5"
 
@@ -20,39 +13,52 @@ echo "📍 Item: $ITEM_URL"
 echo "🎯 Target Status: $TARGET_STATUS"
 
 run_automation() {
-  # STEP A: Get the Project Global Node ID
-  # This ID is required for all 'gh project item-edit' operations.
-  PROJECT_DATA=$(gh project view $PROJECT_NUMBER --owner "$PROJECT_OWNER" --format json)
-  PROJECT_ID=$(echo $PROJECT_DATA | jq -r '.id')
+  # STEP A: Get Project ID
+  PROJECT_DATA=$(gh project view "$PROJECT_NUMBER" --owner "$PROJECT_OWNER" --format json)
+  PROJECT_ID=$(echo "$PROJECT_DATA" | jq -r '.id')
 
-  # STEP B: Add the Item (Issue/PR) to the Project
-  # This returns the 'Item ID', which represents the "card" on the board.
+  # STEP B: Add Item
   echo "📥 Adding item to Project #$PROJECT_NUMBER..."
-  ITEM_ID=$(gh project item-add $PROJECT_NUMBER --owner "$PROJECT_OWNER" --url "$ITEM_URL" --format json | jq -r '.id')
+  ITEM_ID=$(gh project item-add "$PROJECT_NUMBER" --owner "$PROJECT_OWNER" --url "$ITEM_URL" --format json | jq -r '.id')
 
-  # STEP C: Map Field and Option IDs
-  # We fetch the ID for the 'Status' field and the ID for the specific column name.
+  # STEP C: Map Metadata
   echo "⚙️  Mapping metadata for status: $TARGET_STATUS..."
-  STATUS_FIELD_ID=$(gh project field-list $PROJECT_NUMBER --owner "$PROJECT_OWNER" --format json | jq -r '.fields[] | select(.name=="Status") | .id')
+  FIELDS_JSON=$(gh project field-list "$PROJECT_NUMBER" --owner "$PROJECT_OWNER" --format json)
   
-  # Search the options array for the specific column name (e.g., 'Todo' or 'In Progress')
-  OPTION_ID=$(gh project field-list $PROJECT_NUMBER --owner "$PROJECT_OWNER" --format json | jq -r ".fields[] | select(.name==\"Status\") | .options[] | select(.name==\"$TARGET_STATUS\") | .id")
+  STATUS_FIELD_ID=$(echo "$FIELDS_JSON" | jq -r '.fields[] | select(.name=="Status") | .id')
+  OPTION_ID=$(echo "$FIELDS_JSON" | jq -r ".fields[] | select(.name==\"Status\") | .options[] | select(.name==\"$TARGET_STATUS\") | .id")
 
-  # STEP D: Final Update
-  # Apply the status change to the item.
+  if [[ -z "$OPTION_ID" || "$OPTION_ID" == "null" ]]; then
+    echo "❌ Error: Could not find option ID for status '$TARGET_STATUS'"
+    return 1
+  fi
+
+  # STEP D: Final Update with Error Handling
   echo "🚀 Updating item to column: $TARGET_STATUS..."
-  gh project item-edit --id "$ITEM_ID" --project-id "$PROJECT_ID" --field-id "$STATUS_FIELD_ID" --single-select-option-id "$OPTION_ID"
+  
+  # Capture stderr to check for "no changes to make"
+  set +e # Temporarily disable 'exit on error' to handle the CLI response
+  OUTPUT=$(gh project item-edit --id "$ITEM_ID" --project-id "$PROJECT_ID" --field-id "$STATUS_FIELD_ID" --single-select-option-id "$OPTION_ID" 2>&1)
+  EXIT_CODE=$?
+  set -e # Re-enable 'exit on error'
+
+  if [ $EXIT_CODE -eq 0 ]; then
+    return 0
+  elif [[ "$OUTPUT" == *"no changes to make"* ]]; then
+    echo "ℹ️  Notice: Item is already in '$TARGET_STATUS' status."
+    return 0
+  else
+    echo "❌ CLI Error: $OUTPUT"
+    return 1
+  fi
 }
 
-# Execute the function and handle potential failures
 if run_automation; then
-  echo "✅ Success: Item linked and set to $TARGET_STATUS."
+  echo "✅ Success: Project synchronization complete."
 else
   echo "❌ Error: Automation failed. Posting fallback comment..."
-  # If it fails, post a comment to the issue/PR so the human knows.
   gh issue comment "$ISSUE_NUMBER" \
-  --repo "$GITHUB_REPOSITORY" \
-  --body "⚠️ **Automation Note**: Failed to link this to Project #$PROJECT_NUMBER with status '$TARGET_STATUS'. Please check Action logs."
-
+    --repo "$GITHUB_REPOSITORY" \
+    --body "⚠️ **Automation Note**: Failed to link this to Project #$PROJECT_NUMBER with status '$TARGET_STATUS'. Please check Action logs."
   exit 1
 fi
