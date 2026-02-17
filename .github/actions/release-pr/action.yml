@@ -1,0 +1,55 @@
+name: "Check and Create PR"
+description: "Safely creates a Release PR"
+
+inputs:
+  github_token:
+    description: "GitHub Token (Use PAT if GITHUB_TOKEN is restricted)"
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+    - name: Verify PR Status
+      id: check
+      shell: bash
+      env:
+        GH_TOKEN: ${{ inputs.github_token }}
+      run: |
+        PR_URL=$(gh pr list --head main --base release --state open --json url --jq '.[0].url')
+
+        if [ -n "$PR_URL" ]; then
+          echo "PR already exists: $PR_URL"
+          echo "skip=true" >> $GITHUB_OUTPUT
+          echo "url=$PR_URL" >> $GITHUB_OUTPUT
+        else
+          echo "skip=false" >> $GITHUB_OUTPUT
+        fi
+
+    - name: Create PR
+      if: steps.check.outputs.skip == 'false'
+      id: create
+      shell: bash
+      env:
+        GH_TOKEN: ${{ inputs.github_token }}
+      run: |
+        NEW_URL=$(gh pr create \
+          --head main \
+          --base release \
+          --title "🚀 Release: $(date +'%Y-%m-%d')" \
+          --body "Automated sync from main to release.")
+        echo "url=$NEW_URL" >> $GITHUB_OUTPUT
+
+    - name: Generate Step Summary
+      shell: bash
+      run: |
+        echo "## 🚀 Release PR Summary" >> $GITHUB_STEP_SUMMARY
+        if [ "${{ steps.check.outputs.skip }}" == "true" ]; then
+          echo "✅ **Status:** PR Already Exists" >> $GITHUB_STEP_SUMMARY
+          echo "🔗 **Link:** [View Existing PR](${{ steps.check.outputs.url }})" >> $GITHUB_STEP_SUMMARY
+        else
+          echo "✨ **Status:** New PR Created Successfully" >> $GITHUB_STEP_SUMMARY
+          echo "🔗 **Link:** [View New PR](${{ steps.create.outputs.url }})" >> $GITHUB_STEP_SUMMARY
+        fi
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "---" >> $GITHUB_STEP_SUMMARY
+        echo "_Automated by recursivezero App Deployer_" >> $GITHUB_STEP_SUMMARY
