@@ -26,7 +26,7 @@ jobs:
           repository: recursivezero/action-club
 
       - name: Initialize Project for Issue
-        uses: ./.github/actions/project-setup
+        uses: recursivezero/action-club/.github/actions/project-setup@main
         env:
           # This allows GH CLI inside the action to work
           GH_TOKEN: ${{ secrets.PROJECT_PAT }}
@@ -50,7 +50,7 @@ jobs:
           path: action-club
 
       - name: Initialize Project Sidebar & Status
-        uses: ./.github/actions/project-setup
+        uses: recursivezero/action-club/.github/actions/project-setup@main
         env:
           # Injecting the secret for GH CLI
           GH_TOKEN: ${{ secrets.PROJECT_PAT }}
