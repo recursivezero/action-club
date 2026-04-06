@@ -25,3 +25,8 @@ case "$bump_type" in
   patch) npm version patch -m "chore: bump patch version" ;;
   *)     echo "Invalid bump type: $bump_type" && exit 1 ;;
 esac
+
+# 1. Bump version in package.json only (don't tag yet)
+new_version=$(npm version $bump_type --no-git-tag-version)
+echo "NEW_VERSION=$new_version" >> $GITHUB_ENV
+echo "Bumped to $new_version"
