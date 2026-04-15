@@ -1,4 +1,4 @@
-name: "Format Issue ID"
+name: "Format Issue Title"
 description: "Replaces placeholder or appends formatted ID to GitHub issue titles"
 author: "recursivezero"
 
@@ -13,6 +13,9 @@ inputs:
     description: "If true, logs the new title but doesn't update"
     required: false
     default: "false"
+  issue_number:
+    description: "The issue number to format (required for manual runs)"
+    required: false
 
 runs:
   using: "composite"
@@ -21,10 +24,29 @@ runs:
       env:
         GH_TOKEN: ${{ github.token }}
       run: |
+        # 1. Determine the issue number (Manual input or automatic event)
+        NUM="${{ inputs.issue_number || github.event.issue.number }}"
+
+        # 2. Determine the title
+        # If running on an 'issues' event, use that title. 
+        # If running manually, fetch the title using the 'gh' CLI.
+        TITLE="${{ github.event.issue.title }}"
+
+        if [ -z "$TITLE" ]; then
+          echo "Manual trigger detected for issue #$NUM. Fetching title..."
+          TITLE=$(gh issue view "$NUM" --json title --jq '.title')
+        fi
+
+        # 3. Validate we actually have data before running the script
+        if [ -z "$NUM" ] || [ -z "$TITLE" ]; then
+          echo "Error: Issue number or title could not be determined."
+          exit 1
+        fi
+
         chmod +x "${{ github.action_path }}/format.sh"
         "${{ github.action_path }}/format.sh" \
-          "${{ github.event.issue.number }}" \
-          "${{ github.event.issue.title }}" \
+          "$NUM" \
+          "$TITLE" \
           "${{ inputs.prefix }}" \
           "${{ inputs.placeholder }}" \
           "${{ inputs.dry_run }}"
