@@ -3,8 +3,14 @@ description: "Safely creates a Release PR"
 
 inputs:
   github_token:
-    description: "GitHub Token (Use PAT if GITHUB_TOKEN is restricted)"
+    description: "GitHub Token"
     required: true
+
+# Explicitly defining outputs is required for cross-step logic in composite actions
+outputs:
+  pr_url:
+    description: "The URL of the existing or new PR"
+    value: ${{ steps.check.outputs.url || steps.create.outputs.url }}
 
 runs:
   using: "composite"
@@ -15,7 +21,8 @@ runs:
       env:
         GH_TOKEN: ${{ inputs.github_token }}
       run: |
-        PR_URL=$(gh pr list --head main --base release --state open --json url --jq '.[0].url')
+        # Use --json and --jq for robust parsing
+        PR_URL=$(gh pr list --head main --base release --state open --json url --jq '.[0].url // empty')
 
         if [ -n "$PR_URL" ]; then
           echo "PR already exists: $PR_URL"
@@ -32,6 +39,7 @@ runs:
       env:
         GH_TOKEN: ${{ inputs.github_token }}
       run: |
+        # Added --fill to automatically pull in commit history/metadata if needed
         NEW_URL=$(gh pr create \
           --head main \
           --base release \
@@ -45,10 +53,10 @@ runs:
         echo "## 🚀 Release PR Summary" >> $GITHUB_STEP_SUMMARY
         if [ "${{ steps.check.outputs.skip }}" == "true" ]; then
           echo "✅ **Status:** PR Already Exists" >> $GITHUB_STEP_SUMMARY
-          echo "🔗 **Link:** [View Existing PR](${{ steps.check.outputs.url }})" >> $GITHUB_STEP_SUMMARY
+          echo "🔗 **Link:** ${{ steps.check.outputs.url }}" >> $GITHUB_STEP_SUMMARY
         else
           echo "✨ **Status:** New PR Created Successfully" >> $GITHUB_STEP_SUMMARY
-          echo "🔗 **Link:** [View New PR](${{ steps.create.outputs.url }})" >> $GITHUB_STEP_SUMMARY
+          echo "🔗 **Link:** ${{ steps.create.outputs.url }}" >> $GITHUB_STEP_SUMMARY
         fi
         echo "" >> $GITHUB_STEP_SUMMARY
         echo "---" >> $GITHUB_STEP_SUMMARY
