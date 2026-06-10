@@ -3,9 +3,13 @@ description: "High-performance smart version bumper"
 author: "recursivezero"
 
 inputs:
+  bump-type:
+    description: "Select version bump type (patch, minor, major)"
+    required: true
+    default: "patch"
   node-version:
     description: "Node.js version"
-    default: "18"
+    default: "20"
   enable-bump:
     description: "whether bump is enabled"
     default: "true"
