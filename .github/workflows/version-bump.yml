@@ -25,7 +25,7 @@ jobs:
           enable-changelog: "true"
           bump-type: "patch"
 
-      - name: GitHub Summary
-        run: |
-          echo "### 📦 Version bumped to $NEW_VERSION" >> $GITHUB_STEP_SUMMARY
-          echo "### 📝 Changelog updated for $NEW_VERSION" >> $GITHUB_STEP_SUMMARY
+      #- name: GitHub Summary
+      #  run: |
+      #    echo "### 📦 Version bumped to $NEW_VERSION" >> $GITHUB_STEP_SUMMARY
+      #    echo "### 📝 Changelog updated for $NEW_VERSION" >> $GITHUB_STEP_SUMMARY

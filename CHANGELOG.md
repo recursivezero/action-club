@@ -1,8 +1,3 @@
-
-## [v0.2.60] - 2026-06-10
-
-
-
 # ChangeLog
 
 All notable changes to this repository will be documented in this file.
@@ -172,7 +167,7 @@ All notable changes to this repository will be documented in this file.
 ## [v0.2.25] - Sun, Feb 01 2026
 
 - chore: bump patch version
-- [main]: adding secrets in workflow _call
+- [main]: adding secrets in workflow \_call
 - docs: update changelog for v0.2.24
 
 ## [v0.2.26] - Sun, Feb 01 2026
@@ -191,7 +186,7 @@ All notable changes to this repository will be documented in this file.
 ## [v0.2.28] - Sun, Feb 01 2026
 
 - chore: bump patch version
-- [main]: update track  approach
+- [main]: update track approach
 - docs: update changelog for v0.2.27
 
 ## [v0.2.29] - Sun, Feb 01 2026
