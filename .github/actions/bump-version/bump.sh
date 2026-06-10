@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 set -e
 
-if [ "$GITHUB_EVENT_NAME" = "workflow_dispatch" ] && [ -n "${INPUT_BUMP_TYPE}" ]; then
+if [ -n "${INPUT_BUMP_TYPE}" ]; then
   bump_type="${INPUT_BUMP_TYPE}"
-  echo "Using bump type from workflow_dispatch input: $bump_type"
+  echo "Using bump type from input: $bump_type"
 else
   bump="${GITHUB_HEAD_COMMIT_MESSAGE:-$(git log -1 --pretty=%B)}"
   echo "Commit message: $bump"
@@ -17,7 +17,9 @@ else
   echo "Derived bump type from commit message: $bump_type"
 fi
 
-# Single bump call: commits + tags
 new_version=$(npm version "$bump_type" -m "chore: bump $bump_type version to %s")
 echo "NEW_VERSION=$new_version" >> $GITHUB_ENV
 echo "Bumped to $new_version"
+
+# Add to GitHub Summary
+echo "### 📦 Version bumped to $new_version ($bump_type)" >> $GITHUB_STEP_SUMMARY

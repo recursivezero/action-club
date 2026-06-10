@@ -17,3 +17,6 @@ mv NEW_CHANGELOG.md CHANGELOG.md
 
 git add CHANGELOG.md
 git commit -m "chore: update changelog for $new_tag" || true
+
+# Add to GitHub Summary
+echo "### 📝 Changelog updated for $new_tag" >> $GITHUB_STEP_SUMMARY
