@@ -15,4 +15,4 @@ changelog_date=$(date +"%Y-%m-%d")
 git add CHANGELOG.md
 git commit -m "chore: update changelog for $new_tag" || true
 
-#echo "### 📝 Changelog updated for $new_tag" >> $GITHUB_STEP_SUMMARY
+echo "### 📝 Changelog updated for $new_tag" >> $GITHUB_STEP_SUMMARY

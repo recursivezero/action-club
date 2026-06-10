@@ -38,14 +38,10 @@ runs:
 
         if [ "$INPUT_ENABLE_BUMP" = "true" ]; then
           $ACTION_PATH/bump.sh
-          source $GITHUB_ENV   # <-- bring NEW_VERSION into this step
-          echo "### 📦 Version bumped to $NEW_VERSION" >> $GITHUB_STEP_SUMMARY
         fi
 
         if [ "$INPUT_ENABLE_CHANGELOG" = "true" ]; then
           $ACTION_PATH/changelog.sh
-          source $GITHUB_ENV
-          echo "### 📝 Changelog updated for $NEW_VERSION" >> $GITHUB_STEP_SUMMARY
         fi
 
         git push origin main
