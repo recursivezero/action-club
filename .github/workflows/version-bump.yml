@@ -13,6 +13,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
       - name: Run bump-version action
         uses: ./.github/actions/bump-version
         with:
@@ -20,3 +22,8 @@ jobs:
           enable-bump: "true"
           enable-changelog: "true" # toggle changelog update
           bump-type: "patch"
+
+      - name: GitHub Summary
+        run: |
+          echo "### 📦 Version bumped to $NEW_VERSION" >> $GITHUB_STEP_SUMMARY
+          echo "### 📝 Changelog updated for $NEW_VERSION" >> $GITHUB_STEP_SUMMARY
