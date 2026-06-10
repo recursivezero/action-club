@@ -1,25 +1,28 @@
 #!/usr/bin/env bash
 set -e
 
-if [ -n "${INPUT_BUMP_TYPE}" ]; then
-  bump_type="${INPUT_BUMP_TYPE}"
-  echo "Using bump type from input: $bump_type"
+if [ -f package.json ]; then
+  # Node project: use npm version
+  bump_type="${INPUT_BUMP_TYPE:-patch}"
+  new_version=$(npm version "$bump_type" -m "chore: bump $bump_type version to %s")
 else
-  bump="${GITHUB_HEAD_COMMIT_MESSAGE:-$(git log -1 --pretty=%B)}"
-  echo "Commit message: $bump"
-  if [[ "$bump" == *"#minor"* ]]; then
-    bump_type="minor"
-  elif [[ "$bump" == *"#major"* ]]; then
-    bump_type="major"
-  else
-    bump_type="patch"
-  fi
-  echo "Derived bump type from commit message: $bump_type"
+  # No package.json: just create a git tag
+  latest_tag=$(git describe --tags --abbrev=0 2>/dev/null || echo "v0.0.0")
+  bump_type="${INPUT_BUMP_TYPE:-patch}"
+  # Parse version number
+  version=${latest_tag#v}
+  major=$(echo $version | cut -d. -f1)
+  minor=$(echo $version | cut -d. -f2)
+  patch=$(echo $version | cut -d. -f3)
+  case $bump_type in
+    major) major=$((major+1)); minor=0; patch=0 ;;
+    minor) minor=$((minor+1)); patch=0 ;;
+    patch) patch=$((patch+1)) ;;
+  esac
+  new_version="v${major}.${minor}.${patch}"
+  git tag -a "$new_version" -m "chore: bump $bump_type version to $new_version"
 fi
 
-new_version=$(npm version "$bump_type" -m "chore: bump $bump_type version to %s")
 echo "NEW_VERSION=$new_version" >> $GITHUB_ENV
 echo "Bumped to $new_version"
-
-# Add to GitHub Summary
 echo "### 📦 Version bumped to $new_version ($bump_type)" >> $GITHUB_STEP_SUMMARY
