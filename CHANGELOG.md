@@ -1,3 +1,8 @@
+
+## [v0.2.60] - 2026-06-10
+
+
+
 # ChangeLog
 
 All notable changes to this repository will be documented in this file.
