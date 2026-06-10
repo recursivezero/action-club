@@ -50,25 +50,24 @@ runs:
         git config --global user.email "github-actions[bot]@users.noreply.github.com"
         git config --global user.name "github-actions[bot]"
 
-        # 2. Permissions
-        chmod +x $ACTION_PATH/bump.sh $ACTION_PATH/changelog.sh
+        # 2. Ensure branch context
+        git checkout main
 
-        # 3. Pre-bump commit
-        # git add -A
-        # git commit -m "chore: prepare for version bump" || true
+        # 3. Permissions
+        chmod +x $ACTION_PATH/bump.sh $ACTION_PATH/changelog.sh
 
         # 4. Bump Execution
         if [ "$INPUT_ENABLE_BUMP" = "true" ]; then
           $ACTION_PATH/bump.sh
-          echo "### Bump Result: ✅ Success" >> $GITHUB_STEP_SUMMARY
+          echo "### 📦 Version bump succeeded" >> $GITHUB_STEP_SUMMARY
         fi
 
         # 5. Changelog Execution
         if [ "$INPUT_ENABLE_CHANGELOG" = "true" ]; then
           $ACTION_PATH/changelog.sh
-          git add CHANGELOG.md || true
-          git commit -m "chore: update changelog" || true
+          echo "### 📝 Changelog updated" >> $GITHUB_STEP_SUMMARY
         fi
 
         # 6. Final Sync
-        git push origin main --follow-tags
+        git push origin main
+        git push origin --tags
