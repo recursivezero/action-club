@@ -19,3 +19,4 @@ jobs:
           node-version: "20"
           enable-bump: "true"
           enable-changelog: "true" # toggle changelog update
+          bump-type: "patch"
