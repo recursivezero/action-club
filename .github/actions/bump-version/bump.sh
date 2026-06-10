@@ -22,5 +22,5 @@ else
   git tag -a "$new_version" -m "chore: bump $bump_type version to $new_version"
 fi
 
-echo "NEW_VERSION=$new_version" >> $GITHUB_ENV
-echo "### 📦 Version bumped to $new_version ($bump_type)" >> $GITHUB_STEP_SUMMARY
+#echo "NEW_VERSION=$new_version" >> $GITHUB_ENV
+#echo "### 📦 Version bumped to $new_version ($bump_type)" >> $GITHUB_STEP_SUMMARY
