@@ -2,11 +2,9 @@
 set -e
 
 if [ "$GITHUB_EVENT_NAME" = "workflow_dispatch" ] && [ -n "${INPUT_BUMP_TYPE}" ]; then
-  # Manual run with dropdown input
   bump_type="${INPUT_BUMP_TYPE}"
   echo "Using bump type from workflow_dispatch input: $bump_type"
 else
-  # Automatic run based on commit message
   bump="${GITHUB_HEAD_COMMIT_MESSAGE:-$(git log -1 --pretty=%B)}"
   echo "Commit message: $bump"
   if [[ "$bump" == *"#minor"* ]]; then
@@ -19,14 +17,7 @@ else
   echo "Derived bump type from commit message: $bump_type"
 fi
 
-case "$bump_type" in
-  minor) npm version minor -m "chore: bump minor version" ;;
-  major) npm version major -m "chore: bump major version" ;;
-  patch) npm version patch -m "chore: bump patch version" ;;
-  *)     echo "Invalid bump type: $bump_type" && exit 1 ;;
-esac
-
-# 1. Bump version in package.json only (don't tag yet)
-new_version=$(npm version $bump_type --no-git-tag-version)
+# Single bump call: commits + tags
+new_version=$(npm version "$bump_type" -m "chore: bump $bump_type version to %s")
 echo "NEW_VERSION=$new_version" >> $GITHUB_ENV
 echo "Bumped to $new_version"

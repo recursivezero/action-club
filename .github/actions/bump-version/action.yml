@@ -43,6 +43,7 @@ runs:
       env:
         INPUT_ENABLE_BUMP: ${{ inputs.enable-bump }}
         INPUT_ENABLE_CHANGELOG: ${{ inputs.enable-changelog }}
+        INPUT_BUMP_TYPE: ${{ inputs.bump-type }}
         ACTION_PATH: ${{ github.action_path }}
       run: |
         # 1. Identity Config
@@ -53,8 +54,8 @@ runs:
         chmod +x $ACTION_PATH/bump.sh $ACTION_PATH/changelog.sh
 
         # 3. Pre-bump commit
-        git add -A
-        git commit -m "chore: prepare for version bump" || true
+        # git add -A
+        # git commit -m "chore: prepare for version bump" || true
 
         # 4. Bump Execution
         if [ "$INPUT_ENABLE_BUMP" = "true" ]; then
@@ -70,4 +71,4 @@ runs:
         fi
 
         # 6. Final Sync
-        git push --follow-tags
+        git push origin HEAD --follow-tags
