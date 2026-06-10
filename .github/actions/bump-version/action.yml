@@ -71,4 +71,4 @@ runs:
         fi
 
         # 6. Final Sync
-        git push origin HEAD --follow-tags
+        git push origin main --follow-tags
