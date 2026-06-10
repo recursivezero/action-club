@@ -20,25 +20,7 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - name: Environment Detection
-      id: env
-      shell: bash
-      run: |
-        if [ -f "package.json" ]; then
-          echo "is_node=true" >> $GITHUB_OUTPUT
-        else
-          echo "is_node=false" >> $GITHUB_OUTPUT
-        fi
-
-    - name: Setup Node.js Runtime
-      if: steps.env.outputs.is_node == 'true'
-      uses: actions/setup-node@v5
-      with:
-        node-version: ${{ inputs.node-version }}
-        cache: "npm"
-
     - name: Execute Versioning Suite
-      if: steps.env.outputs.is_node == 'true'
       shell: bash
       env:
         INPUT_ENABLE_BUMP: ${{ inputs.enable-bump }}
@@ -46,28 +28,25 @@ runs:
         INPUT_BUMP_TYPE: ${{ inputs.bump-type }}
         ACTION_PATH: ${{ github.action_path }}
       run: |
-        # 1. Identity Config
         git config --global user.email "github-actions[bot]@users.noreply.github.com"
         git config --global user.name "github-actions[bot]"
 
-        # 2. Ensure branch context
+        git fetch origin main
         git checkout main
 
-        # 3. Permissions
         chmod +x $ACTION_PATH/bump.sh $ACTION_PATH/changelog.sh
 
-        # 4. Bump Execution
         if [ "$INPUT_ENABLE_BUMP" = "true" ]; then
           $ACTION_PATH/bump.sh
-          echo "### 📦 Version bump succeeded" >> $GITHUB_STEP_SUMMARY
+          source $GITHUB_ENV   # <-- bring NEW_VERSION into this step
+          echo "### 📦 Version bumped to $NEW_VERSION" >> $GITHUB_STEP_SUMMARY
         fi
 
-        # 5. Changelog Execution
         if [ "$INPUT_ENABLE_CHANGELOG" = "true" ]; then
           $ACTION_PATH/changelog.sh
-          echo "### 📝 Changelog updated" >> $GITHUB_STEP_SUMMARY
+          source $GITHUB_ENV
+          echo "### 📝 Changelog updated for $NEW_VERSION" >> $GITHUB_STEP_SUMMARY
         fi
 
-        # 6. Final Sync
         git push origin main
         git push origin --tags

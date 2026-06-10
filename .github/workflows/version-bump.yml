@@ -22,7 +22,7 @@ jobs:
         with:
           node-version: "20"
           enable-bump: "true"
-          enable-changelog: "true" # toggle changelog update
+          enable-changelog: "true"
           bump-type: "patch"
 
       - name: GitHub Summary
