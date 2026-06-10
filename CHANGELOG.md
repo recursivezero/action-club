@@ -383,8 +383,6 @@ All notable changes to this repository will be documented in this file.
 
 - Version bump type: patch
 
-
-
 ## [v0.2.63] - 2026-06-10
 
 - Version bump type: patch
