@@ -394,3 +394,7 @@ All notable changes to this repository will be documented in this file.
 ## [v0.2.65] - 2026-06-10
 
 - Version bump type: patch
+
+## [v0.2.66] - 2026-07-01
+
+- Version bump type: patch
