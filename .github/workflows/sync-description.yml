@@ -4,15 +4,15 @@ run-name: "Sync description from README on branch: ${{ github.ref_name }}"
 on:
   push:
     branches: [main]
-    paths: 
-    - "README.md"
+    paths:
+      - "README.md"
 
 jobs:
   update-description:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repo
-        uses: actions/checkout@v5
+        uses: actions/checkout@v7
 
       - name: Extract description from README
         id: readme

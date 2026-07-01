@@ -67,7 +67,7 @@ jobs:
     runs-on: ubuntu-latest
     if: github.event_name == 'push'
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v7
       - run: echo "Build triggered by push to main"
 
   branch-create:

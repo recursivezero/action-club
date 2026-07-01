@@ -9,7 +9,7 @@ inputs:
     default: "patch"
   node-version:
     description: "Node.js version"
-    default: "20"
+    default: "24"
   enable-bump:
     description: "whether bump is enabled"
     default: "true"
